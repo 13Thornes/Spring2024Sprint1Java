@@ -25,6 +25,6 @@ public class LibaryItem {
 
     public String toString() {
 
-        return ("Libary Item[ Date: "  + date + ", Author: " + author + "]");
+        return ("Libary Item[ Date: "  + date + ", Author: " + author );
     }
 }
