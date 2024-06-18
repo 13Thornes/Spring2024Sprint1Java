@@ -9,7 +9,7 @@ public class Author {
         // Initialize variables
     String name;
     String DOB;
-    ArrayList<String> itemList;
+    ArrayList<String> itemList = new ArrayList<String>();
 
     // Create constructors
     public Author() {
@@ -20,7 +20,8 @@ public class Author {
     public Author(String n, String d, String i) {
         this.name = n;
         this.DOB = d;
-        this.itemList.add(i);
+        
+        itemList.add(i);
     }
 
     // Getters
@@ -33,7 +34,7 @@ public class Author {
         return DOB;
     }
 
-    public String getBooks() {
+    public String getItems() {
         return itemList.toString();
     }
 
@@ -47,7 +48,7 @@ public class Author {
         this.DOB = d;
     }
 
-    public void setBookList(String b) {
+    public void setItemList(String b) {
         if (this.itemList == null) {
             this.itemList = new ArrayList<String>();
         } else {
@@ -56,7 +57,7 @@ public class Author {
 
     // Add/remove book from bookList
 
-    public void addBook(String b) {
+    public void addItem(String b) {
         if (this.itemList.contains(b)) {
             System.out.println("Item already in list");
         } else {
