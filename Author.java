@@ -47,8 +47,8 @@ public class Author {
         return writtenList.toString();
     }
 
-    public void setWrittenList(LibaryItem  d) {
-        writtenList.add(d);
+    public void setWrittenList(LibaryItem i) {
+        writtenList.add(i);
     }
 
     // Add/remove book from WrittenList
