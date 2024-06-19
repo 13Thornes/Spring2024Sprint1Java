@@ -7,75 +7,72 @@ import java.util.ArrayList;
 
 public class Author {
         // Initialize variables
-    String name;
-    String DOB;
-    ArrayList<String> itemList = new ArrayList<String>();
+    public String name;
+    public String DOB;
+    public ArrayList<LibaryItem> writtenList = new ArrayList<LibaryItem>();
 
     // Create constructors
-    public Author() {
-        this.name = "Default";
-        this.DOB = "Default";
+    public Author(String n, String d) {
+        this.name = n;
+        this.DOB = d;  
     }
 
-    public Author(String n, String d, String i) {
+    
+    public Author(String n, String d, LibaryItem bt) {
         this.name = n;
         this.DOB = d;
-        
-        itemList.add(i);
+        writtenList.add(bt);
+
     }
 
-    // Getters
+    // Getters and Setters
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String n) {
+        this.name = n;
     }
 
     public String getDOB() {
         return DOB;
     }
 
-    public String getItems() {
-        return itemList.toString();
-    }
-
-    // Setters 
-
-    public void setName(String n) {
-        this.name = n;
-    }
-
     public void setDOB(String d) {
         this.DOB = d;
     }
 
-    public void setItemList(String b) {
-        if (this.itemList == null) {
-            this.itemList = new ArrayList<String>();
-        } else {
-        this.itemList.add(b);
-    }}
+    public String getWrittenList() {
+        return writtenList.toString();
+    }
 
-    // Add/remove book from bookList
+    public void setWrittenList(LibaryItem  d) {
+        writtenList.add(d);
+    }
 
-    public void addItem(String b) {
-        if (this.itemList.contains(b)) {
+    // Add/remove book from WrittenList
+
+    public void addWrittenItem(LibaryItem  b) {
+        if (this.writtenList.contains(b)) {
             System.out.println("Item already in list");
         } else {
-            this.itemList.add(b);
+            writtenList.add(b);
             System.out.println("Item added to list");
         }
     }
 
-    public void removeItem(String item) {
-        if (this.itemList.contains(item)) {
-            itemList.remove(item);
+    public void removeWrittenItem(LibaryItem item) {
+        if (this.writtenList.contains(item)) {
+            writtenList.remove(item);
+            System.out.println("Item removed from list");
     }
 
     }
 
     // toString() 
     public String toString() {
-        return "Name: " + this.name + ", DOB: " + this.DOB + ", Works: " + this.itemList.toString();
+        return "Name: " + this.name + ", DOB: " + this.DOB + ", Works: " + this.writtenList.toString();
     
     }
     
