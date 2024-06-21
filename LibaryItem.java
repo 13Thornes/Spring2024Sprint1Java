@@ -19,7 +19,9 @@ public class LibaryItem {
         this.publisher = publisher;
         this.copyNum = copyNum;
     }
+    public LibaryItem(){
 
+    }
     // Getters and Setters
 
     public int getItemID() {

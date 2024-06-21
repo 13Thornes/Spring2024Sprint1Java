@@ -8,6 +8,8 @@ public class Periodical extends LibaryItem {
         this.issueNum = issueNum;
     }
 
+    public Periodical(){}
+
     public String getType() {
         return this.type;
     }

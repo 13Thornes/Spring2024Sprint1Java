@@ -7,6 +7,9 @@ public class Book extends LibaryItem {
         this.type = type;
         this.genre = genre;
     }
+    public Book(){
+        super();
+    }
 
     public String getType() {
         return this.type;
