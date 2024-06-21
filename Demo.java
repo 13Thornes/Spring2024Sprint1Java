@@ -324,6 +324,81 @@ public class Demo {
     }
     
 }
+
+public static void editItem(Library l){
+    boolean valid = false;
+    Scanner scanner = new Scanner(System.in);
+    String itemName;
+    String itemType;
+    System.out.println("Enter the type of Item(B,P)");
+    itemType = scanner.next();
+
+    if(itemType.equals("B")){
+    System.out.println("Enter the Name of the Book you want to edit");
+        
+    itemName = scanner.next();
+
+
+    ArrayList<Book> bList;
+    bList = l.getBookList();
+    for (Book b : bList) {
+        if (b.getTitle().equals(itemName))
+        {
+            valid = true;
+            System.out.println("Enter the Item ID");
+            b.setItemID(scanner.nextInt());
+
+            System.out.println("Enter the title");
+            b.setTitle(scanner.next());
+
+            System.out.println("Enter the Item ISBN");
+            b.setIsbn(scanner.next());
+
+            System.out.println("Enter the amount of copies");
+            b.setCopyNum(scanner.nextInt());
+        }
+      }
+
+      if(valid == false){
+        System.out.println("Book does not exist");
+      }
+    }
+     else if(itemType.equals("P")){
+      System.out.println("Enter the Name of the Periodical you want to edit");
+  
+      itemName = scanner.next();
+  
+  
+      ArrayList<Periodical> pList;
+      pList = l.getPeriodicalList();
+      for (Periodical p : pList) {
+          if (p.getTitle().equals(itemName));
+          {
+              valid = true;
+              System.out.println("Enter the Item ID");
+              p.setItemID(scanner.nextInt());
+  
+              System.out.println("Enter the title");
+              p.setTitle(scanner.next());
+  
+              System.out.println("Enter the Item ISBN");
+              p.setIsbn(scanner.next());
+  
+              System.out.println("Enter the amount of copies");
+              p.setCopyNum(scanner.nextInt());
+          }
+        }
+  
+        if(valid == false){
+          System.out.println("Periodical does not exist");
+        }
+    }
+
+    else{
+        System.out.println("Invalid input");
+    }
+    }
+
     public static void main(String[] args) {
         Author a1 = new Author("Cindy Newman", "12-01-1925");
         Book b1 = new Book(123, "Hello", a1, "A2H357", "Publish", 2, "EBook", "Fiction");
@@ -354,7 +429,8 @@ public class Demo {
                     break;
                 case 2:
                     System.out.println("Editing an existing library item...");
-                    // Add logic to edit a library item
+                    editItem(l);
+                    System.out.println(l.toString());
                     break;
                 case 3:
                     System.out.println("Deleting a library item...");
