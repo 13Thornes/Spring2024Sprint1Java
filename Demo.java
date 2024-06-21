@@ -1,24 +1,29 @@
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
 
 public class Demo {
+
     
-    public void addBook()
+    
+        
+
+    
+    public static void addBook(Library l)
 { Scanner scanner = new Scanner(System.in);
     String itemType;
     String choice;
     System.out.println("Is the libary Item a book or peridoical(B, P): ");
     itemType = scanner.next();
 
-    if(itemType == "B"){
+    System.out.println(itemType);
 
-        
-        
+    if(itemType.equals("B") ){
         System.out.println("Is the author of the libary item already in the system?(Y,N)?");
         choice = scanner.next();
-        if(choice == "N"){
+        if(choice.equals("N")){
             String name;
             String DOB;
 
@@ -29,7 +34,9 @@ public class Demo {
 
             DOB = scanner.next();
 
-            // Author a = new Author(name, DOB);
+             Author a = new Author(name, DOB);
+
+             l.addAuthor(a);
 
             int itemID;
             String title;
@@ -63,29 +70,48 @@ public class Demo {
 
             type = scanner.next();
 
-            if(type != "P" && type !="E"  && type != "A"){
-                System.out.println("Invalid Input");
-            }
-
-            else{
-            System.out.println("Enter the genre");
+            if(type.equals("P") || type.equals("E")  || type.equals("AS")){
+                System.out.println("Enter the genre");
 
             genre = scanner.next();
 
-            //Book = new Book()
+            Book b= new Book( itemID,title, a, ISBN, publisher, copyNum, type, genre);
+            l.addBook(b);
+            }
 
-
+            else{
+            
+                System.out.println("Invalid Input");
             }
             
 
         }
 
-        else if(choice == "Y"){
+        else if(choice.equals("Y")){
 
+            boolean valid = false;
             System.out.println("Please enter the authors full name");
             String authorName = scanner.next();
+            Author a1 = new Author();
 
-            
+            ArrayList<Author> authorList = new ArrayList<Author>();
+
+            authorList = l.getAuthorList();
+
+            for (Author a : authorList) {
+                if (a.getName().equals(authorName));
+                {
+                    valid = true;
+
+                    a1 = a;
+                }
+              }
+
+              if(valid == false){
+                System.out.println("Author is not in the database");
+              }
+
+        else{
             int itemID;
             String title;
             String ISBN;
@@ -127,11 +153,13 @@ public class Demo {
 
             genre = scanner.next();
 
-            //Book = new Book()
+            Book b = new Book( itemID, title, a1, ISBN,publisher,copyNum, type, genre);
+
+            l.addBook(b);
 
 
             }
-
+        }
         }
 
         else{
@@ -140,13 +168,13 @@ public class Demo {
 
     }
 
-    else if(itemType == "P"){
+    else if(itemType.equals("P")){
 
         
         
         System.out.println("Is the author of the libary item already in the system?(Y,N)?");
         choice = scanner.next();
-        if(choice == "N"){
+        if(choice.equals("N")){
             String name;
             String DOB;
 
@@ -157,7 +185,9 @@ public class Demo {
 
             DOB = scanner.next();
 
-            // Author a = new Author(name, DOB);
+             Author a = new Author(name, DOB);
+
+             l.addAuthor(a);
 
             int itemID;
             String title;
@@ -200,7 +230,8 @@ public class Demo {
 
             issueNum = scanner.next();
 
-            //Book = new Book()
+            Periodical p = new Periodical( itemID, title,  a, ISBN, publisher, copyNum, type, issueNum);
+            l.addPeriodical(p);
 
 
             }
@@ -208,10 +239,30 @@ public class Demo {
 
         }
 
-        else if(choice == "Y"){
+        else if(choice.equals("Y")){
 
+            boolean valid = false;
             System.out.println("Please enter the authors full name");
             String authorName = scanner.next();
+
+            ArrayList<Author> authorList = new ArrayList<Author>();
+            Author a1 = new Author();
+            authorList = l.getAuthorList();
+
+            for (Author a : authorList) {
+                if (a.getName().equals(authorName));
+                {
+                    valid = true;
+
+                    a1 = a;
+                }
+              }
+
+              if(valid == false){
+                System.out.println("Author is not in the database");
+              }
+
+        else{
 
             
             int itemID;
@@ -255,11 +306,12 @@ public class Demo {
 
             issueNum = scanner.next();
 
-            //Book = new Book()
+            Periodical p = new Periodical( itemID, title,  a1, ISBN, publisher, copyNum, type, issueNum);
+            l.addPeriodical(p);
 
 
             }
-
+        }
         }
 
         else{
@@ -270,9 +322,17 @@ public class Demo {
     else{
         System.out.println("Invalid Input");
     }
-    scanner.close();
+    
 }
     public static void main(String[] args) {
+        Author a1 = new Author("Cindy Newman", "12-01-1925");
+        Book b1 = new Book(123, "Hello", a1, "A2H357", "Publish", 2, "EBook", "Fiction");
+        Periodical p1 = new Periodical(456, "Bye", a1, "1h4s9o", "Company", 3, "Magazine", "45");
+        Patron pa1 = new Patron(234, "Katherine Wall", "123 Main st", "1234567890");
+
+        
+        Library l = new Library(b1, p1, pa1, a1);
+
         Scanner scanner = new Scanner(System.in);
         int choice;
         do {
@@ -289,7 +349,8 @@ public class Demo {
             switch (choice) {
                 case 1:
                     System.out.println("Adding a new library item...");
-                    // Add logic to add a library item
+                    addBook(l);
+                    System.out.println(l.toString());
                     break;
                 case 2:
                     System.out.println("Editing an existing library item...");
