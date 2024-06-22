@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class LibaryItem {
     public int itemID;
@@ -71,6 +72,10 @@ public class LibaryItem {
         this.copyNum = copyNum;
     }
 
+    public int getBorrowAmount() {
+        return borrowAmount;
+    }
+
     // toString()
 
     public String toString() {
@@ -80,16 +85,16 @@ public class LibaryItem {
 
     // Borrow and Return book
 
-    public void Borrow() {
-
+    public void Borrow(Patron p) {
+        
         if(borrowAmount == copyNum){
             System.out.println(title + " is currently unaviable");
         }
 
         else{
 
-            borrowAmount++;
-    }
+            p.addBorrowedItem(this);
+        }
     }
 
     public void Return() {

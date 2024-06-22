@@ -12,12 +12,12 @@ public class Student extends Patron{
         this.grade = grade;
     }
 
-    public Student(int patronID, String name, String address, String phoneNum, int studentID, String school, int grade, ArrayList<Book> itemList) {
+    public Student(int patronID, String name, String address, String phoneNum, int studentID, String school, int grade, ArrayList<LibaryItem> itemList) {
         super(patronID, name, address, phoneNum);
         this.studentID = studentID;
         this.school = school;
         this.grade = grade;
-        ArrayList<Book> borrowList = new ArrayList<Book>();
+        ArrayList<LibaryItem> borrowList = new ArrayList<LibaryItem>();
         borrowList.addAll(itemList);
     }
 

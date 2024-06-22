@@ -45,8 +45,8 @@ public class Author {
         this.DOB = d;
     }
 
-    public String getWrittenList() {
-        return writtenList.toString();
+    public ArrayList<LibaryItem> getWrittenList() {
+        return writtenList;
     }
 
     public void setWrittenList(LibaryItem i) {

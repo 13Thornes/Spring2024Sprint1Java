@@ -11,11 +11,11 @@ public class Employee  extends Patron{
         this.position = position;
     }
 
-    public Employee(int patronID, String name, String address, String phoneNum, int empID, String position, ArrayList<Book> itemList) {
+    public Employee(int patronID, String name, String address, String phoneNum, int empID, String position, ArrayList<LibaryItem> itemList) {
         super(patronID, name, address, phoneNum);
         this.empID = empID;
         this.position = position;
-        ArrayList<Book> borrowList = new ArrayList<Book>();
+        ArrayList<LibaryItem> borrowList = new ArrayList<LibaryItem>();
         borrowList.addAll(itemList);
     }
 
