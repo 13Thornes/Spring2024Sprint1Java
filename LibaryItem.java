@@ -94,6 +94,7 @@ public class LibaryItem {
         else{
 
             p.addBorrowedItem(this);
+            borrowAmount++;
         }
     }
 

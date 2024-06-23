@@ -65,12 +65,10 @@ public class Patron {
     // Add/remove book from WrittenList
 
     public void addBorrowedItem(LibaryItem  b) {
-        if (this.borrowedList.contains(b)) {
-            System.out.println("Item already in list");
-        } else {
+        
             borrowedList.add(b);
             System.out.println("Item added to list");
-        }
+        
     }
 
     public void removeBorrowedItem(LibaryItem item) {

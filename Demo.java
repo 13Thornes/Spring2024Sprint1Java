@@ -505,9 +505,24 @@ public static void removeItem(Library l){
                         ArrayList <Patron> pList = l.getPatronList();
                         boolean pValid = false;
                         for(Patron p: pList){
+                            int amountCopies = 0;
                             if(pId == p.getPatronID()){
                             pValid = true;
+                            boolean validCopies = false;
+                            while(validCopies == false){
 
+                                System.out.println("Enter the amount of copies you wish to borrow");
+                                amountCopies = scanner.nextInt();
+
+                                if (amountCopies > (b.getCopyNum()-b.getBorrowAmount())){
+                                    System.out.println("Cannot borrow this amount of copies");
+                                    
+                                }
+                                else{
+                                    validCopies = true;
+                                }
+                            }
+                            for(int i =1;i<= amountCopies; i++)
                             b.Borrow(p);
                             }
                         }
@@ -523,6 +538,8 @@ public static void removeItem(Library l){
                             String address;
                             String phoneNum;
                             String pType;
+                            int amountCopies = 0;
+                            
 
                             System.out.println("Enter the patron Id");
                             
@@ -554,9 +571,25 @@ public static void removeItem(Library l){
                                 System.out.println("Enter the patron's grade");
                                 grade = scanner.nextInt();
 
-                                Student s = new Student(pId,name,address,phoneNum,studentID, school, grade);;
-                                b.Borrow(s);
-                                l.addPatron(s);  
+                                Student s = new Student(pId,name,address,phoneNum,studentID, school, grade);
+                                l.addPatron(s);
+                                boolean validCopies = false;
+                                while(validCopies == false){
+
+                                System.out.println("Enter the amount of copies you wish to borrow");
+                                amountCopies = scanner.nextInt();
+
+                                if (amountCopies > (b.getCopyNum()-b.getBorrowAmount())){
+                                    System.out.println("Cannot borrow this amount of copies");
+                                    
+                                }
+                                else{
+                                    validCopies = true;
+                                }
+                            }
+                            for(int i =1;i<= amountCopies; i++){
+                            b.Borrow(s);
+                            }  
                             }
 
                             else if(pType.equals("E")){
@@ -570,9 +603,25 @@ public static void removeItem(Library l){
 
                                  position = scanner.next();
                                  Employee e = new Employee(pId,name,address,phoneNum,empID, position);
-                                 
-                                 b.Borrow(e);
                                  l.addPatron(e);
+                                 
+                                 boolean validCopies = false;
+                            while(validCopies == false){
+
+                                System.out.println("Enter the amount of copies you wish to borrow");
+                                amountCopies = scanner.nextInt();
+
+                                if (amountCopies > (b.getCopyNum()-b.getBorrowAmount())){
+                                    System.out.println("Cannot borrow this amount of copies");
+                                    
+                                }
+                                else{
+                                    validCopies = true;
+                                }
+                            }
+                            for(int i =1;i<= amountCopies; i++){
+                            b.Borrow(e);
+                            }
                             }
 
                             else{
@@ -1106,6 +1155,49 @@ public static void removeItem(Library l){
         }
     }
 
+    public static void returnLibraryItem(Library l){
+        Scanner scanner = new Scanner(System.in);
+        int parId;
+        ArrayList<Patron> parList = l.getPatronList();
+
+        System.out.println("Enter the Patron's id");
+        parId = scanner.nextInt();
+
+        for(Patron par: parList){
+            if(par.getPatronID() == parId){
+                String title;
+                ArrayList<LibaryItem> itemList = par.getBorrowedList();
+                boolean removeBook = false;
+                LibaryItem lI = new LibaryItem();
+
+                for(LibaryItem i: itemList){
+                    System.out.println(i.getTitle() + " Author: " + i.getAuthor().getName() + " " + i.getIsbn());
+                }
+
+                System.out.println("Enter the title of the book you wish to return");
+                title = scanner.next();
+
+                for(LibaryItem i : itemList){
+                    if(i.getTitle().equals(title)){
+                        removeBook = true;
+                        lI = i;
+                    }
+                }
+
+                if(removeBook == true){
+                    par.removeBorrowedItem(lI);
+                    lI.Return();
+                }
+
+                else{
+                    System.out.println("Invalid input");
+                }
+
+            }
+        }
+
+        
+    }
         
 
 
@@ -1117,6 +1209,7 @@ public static void removeItem(Library l){
 
         a1.addWrittenItem(b1);
         a1.addWrittenItem(p1);
+       // b1.Borrow(pa1);
         Library l = new Library(b1, p1, pa1, a1);
 
         Scanner scanner = new Scanner(System.in);
@@ -1155,7 +1248,8 @@ public static void removeItem(Library l){
                     break;
                 case 5:
                     System.out.println("Returning a library item...");
-                    // Add logic to return a library item
+                    returnLibraryItem(l);
+                    System.out.println(l);
                     break;
                 case 6:
                     System.out.println("Exiting the system. Goodbye!");
