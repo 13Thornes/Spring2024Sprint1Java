@@ -90,6 +90,45 @@ public void addBook(Book book) {
             System.out.println("Author added");
         }
     }
+    //Remove Author from system
+    public void removeAuthor(Author author){
+        if (authorList.contains(author)) {
+            
+            ArrayList<Book> removeBList = new ArrayList<Book>();
+            for(Book i: bookList){
+                if(i.getAuthor().getName().equals(author.getName())){
+                removeBList.add(i);
+                }
+            }
+
+            
+            for(Patron p: patronList){
+                ArrayList<LibaryItem> iList = p.getBorrowedList();
+                for(LibaryItem i: iList){
+                    if(i.getAuthor().getName().equals(author.getName())){
+                        i.Return();
+                    }
+                }
+            }
+
+            for(Book i: removeBList){
+                this.removeBook(i);
+            }
+            ArrayList<Periodical> removePList = new ArrayList<Periodical>();
+            for(Periodical i: periodicalList){
+                if(i.getAuthor().getName().equals(author.getName())){
+                removePList.add(i);
+                }
+            }
+            for(Periodical i: removePList){
+                this.removePeriodical(i);
+            }
+            authorList.remove(author);
+            System.out.println("Author removed");
+        } else {
+            System.out.println("This Author was not in the library");
+        }
+    }
 
 public void removeBook(Book book) {
     if (bookList.contains(book)) {

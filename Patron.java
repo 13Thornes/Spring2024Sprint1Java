@@ -13,7 +13,9 @@ public class Patron {
         this.address = address;
         this.phoneNum = phoneNum;
     }
+    public Patron(){
 
+    }
     public Patron(int patronID, String name, String address, String phoneNum, LibaryItem item) {
         this.patronID = patronID;
         this.name = name;

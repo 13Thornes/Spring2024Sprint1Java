@@ -5,24 +5,45 @@ import java.util.Scanner;
 
 
 public class Demo {
-
-    
-    
-        
-
-    
+    //Method to add an library item to the database
     public static void addBook(Library l)
 { Scanner scanner = new Scanner(System.in);
-    String itemType;
-    String choice;
+    String itemType = "";
+    String choice = "";
+    boolean validInput = false;
+
+    //Obtian the type of publication
+    while(validInput == false){
     System.out.println("Is the libary Item a book or peridoical(B, P): ");
     itemType = scanner.next();
 
-    System.out.println(itemType);
+    if(itemType.equals("B")|| itemType.equals("P")){
+        validInput = true;
+    }
 
+    else{
+        System.out.println("Invalid input");
+    }
+}
+
+    validInput = false;
     if(itemType.equals("B") ){
+
+        //Input wether the author is in the system or not
+        while(validInput == false){
         System.out.println("Is the author of the libary item already in the system?(Y,N)?");
         choice = scanner.next();
+
+        if(choice.equals("Y") || choice.equals("N")){
+            validInput = true;
+        }
+        else{
+            System.out.println("Invalid input");
+        }
+        }
+        validInput = false;
+
+        //Add the author to the system
         if(choice.equals("N")){
             String name;
             String DOB;
@@ -38,6 +59,7 @@ public class Demo {
 
              l.addAuthor(a);
 
+             //Create the new book
             int itemID;
             String title;
             String ISBN;
@@ -69,38 +91,53 @@ public class Demo {
             System.out.println("Enter the type of book(P,E,A)");
 
             type = scanner.next();
-
-            if(type.equals("P") || type.equals("E")  || type.equals("AS")){
-                System.out.println("Enter the genre");
-
+            while(validInput == false){
+                System.out.println("Enter the type of book(P,E,A)");
+    
+                type = scanner.next();
+                System.out.println(type);
+    
+                if(type.equals("P") || type.equals("E")  || type.equals("A")){
+                    validInput = true;
+                }
+    
+                else{
+               
+                    
+                    System.out.println("Invalid Input");
+    
+                }
+            }
+            validInput = false;
             genre = scanner.next();
 
+            //Create the object andd add it to the system
             Book b= new Book( itemID,title, a, ISBN, publisher, copyNum, type, genre);
             l.addBook(b);
             }
-
-            else{
-            
-                System.out.println("Invalid Input");
-            }
-            
-
-        }
-
+        
+            //Enter if the author is in the system
         else if(choice.equals("Y")){
 
             boolean valid = false;
-            System.out.println("Please enter the authors full name");
-            String authorName = scanner.next();
             Author a1 = new Author();
+            String authorName = "";
+
+            //Have the user enter the author's name
+            while(validInput == false ){
+            System.out.println("Please enter the authors full name");
+            authorName = scanner.next();
+            
 
             ArrayList<Author> authorList = new ArrayList<Author>();
 
             authorList = l.getAuthorList();
 
             for (Author a : authorList) {
-                if (a.getName().equals(authorName));
+                //If found the author, save it 
+                if (a.getName().equals(authorName))
                 {
+                    System.out.println("Enter");
                     valid = true;
 
                     a1 = a;
@@ -111,13 +148,19 @@ public class Demo {
                 System.out.println("Author is not in the database");
               }
 
-        else{
+              else{
+                validInput = true;
+              }
+            }
+            validInput = false;
+        
+            //Create the data for the book
             int itemID;
             String title;
             String ISBN;
             String publisher;
             int copyNum;
-            String type;
+            String type ="";
             String genre;
 
             System.out.println("Enter the Item Id");
@@ -140,44 +183,68 @@ public class Demo {
 
             copyNum = scanner.nextInt();
 
+            
+            while(validInput == false){
             System.out.println("Enter the type of book(P,E,A)");
 
             type = scanner.next();
+            System.out.println(type);
 
-            if(type != "P" && type !="E"  && type != "A"){
-                System.out.println("Invalid Input");
+            if(type.equals("P") || type.equals("E")  || type.equals("A")){
+                validInput = true;
             }
 
             else{
-            System.out.println("Enter the genre");
-
-            genre = scanner.next();
-
-            Book b = new Book( itemID, title, a1, ISBN,publisher,copyNum, type, genre);
-
-            l.addBook(b);
-
+           
+                
+                System.out.println("Invalid Input");
 
             }
         }
+        validInput = false;
+        System.out.println("Enter the genre");
+
+        genre = scanner.next();
+
+        //Create the book and store it in the system
+        Book b = new Book( itemID, title, a1, ISBN,publisher,copyNum, type, genre);
+
+        l.addBook(b);
+        a1.addWrittenItem(b);
+        }
+        
+
+
+    }
+
+    //Enter if the publication is a periodical
+    else if(itemType.equals("P")){
+
+        //See if the author is already in the system
+        while(validInput == false){
+        
+        System.out.println("Is the author of the libary item already in the system?(Y,N)?");
+        choice = scanner.next();
+
+        if(choice.equals("Y") || choice.equals("N")){
+            validInput = true;
         }
 
         else{
             System.out.println("Invalid Input");
         }
-
+        }
+        validInput = false;
     }
 
-    else if(itemType.equals("P")){
 
-        
-        
-        System.out.println("Is the author of the libary item already in the system?(Y,N)?");
-        choice = scanner.next();
+        //Enter if the author is not in the system
         if(choice.equals("N")){
+
+            //Create the data for the author
             String name;
             String DOB;
-
+            
             System.out.println("Please enter the Author's full name.");
             name = scanner.next();
 
@@ -185,16 +252,19 @@ public class Demo {
 
             DOB = scanner.next();
 
+            //Create the author object
+
              Author a = new Author(name, DOB);
 
              l.addAuthor(a);
 
+             //Create the data for the periodical
             int itemID;
             String title;
             String ISBN;
             String publisher;
             int copyNum;
-            String type;
+            String type = "";
             String issueNum;
 
             System.out.println("Enter the Item Id");
@@ -217,19 +287,29 @@ public class Demo {
 
             copyNum = scanner.nextInt();
 
-            System.out.println("Enter the type of peridoical(P,E,A)");
-
-            type = scanner.next();
-
-            if(type != "P" && type !="E"){
-                System.out.println("Invalid Input");
+            while(validInput == false){
+                System.out.println("Enter the type of book(P,E)");
+    
+                type = scanner.next();
+                System.out.println(type);
+    
+                if(type.equals("P") || type.equals("E")){
+                    validInput = true;
+                }
+    
+                else{
+               
+                    
+                    System.out.println("Invalid Input");
+    
+                }
             }
+            validInput = false;
 
-            else{
-            System.out.println("Enter the Issue Number");
-
+            System.out.println("Enter the issue number");
             issueNum = scanner.next();
 
+            //Create the periodical
             Periodical p = new Periodical( itemID, title,  a, ISBN, publisher, copyNum, type, issueNum);
             l.addPeriodical(p);
 
@@ -237,21 +317,29 @@ public class Demo {
             }
             
 
-        }
+        
 
+        //Enter if the author is already in the System
         else if(choice.equals("Y")){
-
             boolean valid = false;
+            Author a1 = new Author();
+            String authorName = "";
+
+            //Have the user enter the author's name
+            while(validInput == false ){
             System.out.println("Please enter the authors full name");
-            String authorName = scanner.next();
+            authorName = scanner.next();
+            
 
             ArrayList<Author> authorList = new ArrayList<Author>();
-            Author a1 = new Author();
+
             authorList = l.getAuthorList();
 
             for (Author a : authorList) {
-                if (a.getName().equals(authorName));
+                //If found the author, save it 
+                if (a.getName().equals(authorName))
                 {
+                    System.out.println("Enter");
                     valid = true;
 
                     a1 = a;
@@ -262,9 +350,15 @@ public class Demo {
                 System.out.println("Author is not in the database");
               }
 
-        else{
+              else{
+                validInput = true;
+              }
+            }
+            validInput = false;
 
-            
+        
+
+            //Create the data for the periodical
             int itemID;
             String title;
             String ISBN;
@@ -296,14 +390,26 @@ public class Demo {
             System.out.println("Enter the type of Perodical(P,E)");
 
             type = scanner.next();
-
-            if(type != "P" && type !="E"  ){
-                System.out.println("Invalid Input");
+            while(validInput == false){
+                System.out.println("Enter the type of book(P,E)");
+    
+                type = scanner.next();
+                System.out.println(type);
+    
+                if(type.equals("P") || type.equals("E")){
+                    validInput = true;
+                }
+    
+                else{
+               
+                    
+                    System.out.println("Invalid Input");
+    
+                }
             }
+            validInput = false;
 
-            else{
-            System.out.println("Enter the Issue Number");
-
+            System.out.println("Enter the issue number");
             issueNum = scanner.next();
 
             Periodical p = new Periodical( itemID, title,  a1, ISBN, publisher, copyNum, type, issueNum);
@@ -312,29 +418,54 @@ public class Demo {
 
             }
         }
-        }
+        
+       
 
-        else{
-            System.out.println("Invalid Input");
-        }
-    }
-
-    else{
-        System.out.println("Invalid Input");
-    }
-    
-}
-
+//Method to remove item from data base
 public static void removeItem(Library l){
     boolean valid = false;
+    boolean validInput = false;
     Scanner scanner = new Scanner(System.in);
     String itemName;
-    String itemType;
+    String itemType = "";
+    String choice = "";
     Book removeBook = new Book();
+
+    //Have the user enter what type of item they wish to delete
+    while(validInput == false){
+        System.out.println("Enter the what type of item to be deleted (LB,P,A)");
+        choice = scanner.next();
+
+        if(choice.equals("LB") || choice.equals("P") || choice.equals("A")){
+            validInput = true;
+        }
+        else{
+            System.out.println("Invalid input");
+        }
+    }
+    validInput = false;
+
+    if(choice.equals("LP")){ 
+    //Have the user enter they type of item
+    while (validInput == false){
     System.out.println("Enter the type of Item(B,P)");
     itemType = scanner.next();
 
+    if(itemType.equals("B") || itemType.equals("P")){
+        validInput = true;
+    }
+    else{
+        System.out.println("Invalid Input");
+    }
+    }
+    validInput = false;
+
+    //Enter if the item is a book
     if(itemType.equals("B")){
+
+    //Search throught the books with the title
+
+    while(validInput == false){
     System.out.println("Enter the Name of the Book you want to remove");
         
     itemName = scanner.next();
@@ -356,20 +487,30 @@ public static void removeItem(Library l){
       }
 
       else{
-        l.removeBook(removeBook);
+        validInput = true;
       }
     }
+    validInput = false;
+
+      //remove the book from the system
+        l.removeBook(removeBook);
+    
+    }
+    //Enter if the item is a periodical
      else if(itemType.equals("P")){
+        Periodical removeP = new Periodical();
+
+        //Search the list for the periodical
+        while(validInput == false){
       System.out.println("Enter the Name of the Periodical you want to remove");
-  
-      Periodical removeP = new Periodical();
       itemName = scanner.next();
+        
   
   
       ArrayList<Periodical> pList;
       pList = l.getPeriodicalList();
       for (Periodical p : pList) {
-          if (p.getTitle().equals(itemName));
+          if (p.getTitle().equals(itemName))
           {
               valid = true;
              removeP = p;
@@ -379,90 +520,259 @@ public static void removeItem(Library l){
         if(valid == false){
           System.out.println("Periodical does not exist");
         }
-
         else{
-            l.removePeriodical(removeP);
+            validInput = true;
+          }
+
+    }
+
+        //Remove the periodical from the list
+        l.removePeriodical(removeP);
+        
+    }
+    }
+
+    //Enter if a patron is being deleted
+    else if(choice.equals("P")){
+        Patron removePar = new Patron();
+        validInput = false;
+        //Enter the id of the patron to be deleted
+        while (validInput == false){
+            System.out.println("Enter the Patron's Id");
+            int pId = scanner.nextInt();
+
+            ArrayList<Patron> pList = l.getPatronList();
+
+            for(Patron p: pList){
+
+                if(p.getPatronID() == pId){
+                    valid = true;
+                    removePar = p;
+                }
+            }
+
+            if (valid == false){
+                System.out.println("Invalid Id");
+            }
+
+            else{
+                validInput = true;
+            }
         }
+
+        ArrayList<LibaryItem> lbList = removePar.getBorrowedList();
+
+        //Return the patrons books
+        for(LibaryItem i: lbList){
+            i.Return();
+        }
+
+        //Remove the patron from the system
+        l.removePatron(removePar);
+
+    }
+    //Enter if an author is being removed
+    else if( choice.equals("A")){
+        Author removeA = new Author();
+        //Search the System for the author
+       
+            System.out.println("Enter the author's name");
+            String name = scanner.next();
+
+            ArrayList<Author> aList = l.getAuthorList();
+
+            for(Author a: aList){
+
+                if(a.getName().equals(name)){
+                    valid = true;
+                    removeA = a;
+                }
+            }
+
+           
+        //Remove the author from the system
+        l.removeAuthor(removeA);
+    }
     }
 
-    else{
-        System.out.println("Invalid input");
-    }
-    }
-
+    //Method to edit item
     public static void editItem(Library l){
         boolean valid = false;
         Scanner scanner = new Scanner(System.in);
         String itemName;
-        String itemType;
-        System.out.println("Enter the type of Item(B,P)");
-        itemType = scanner.next();
-    
-        if(itemType.equals("B")){
-        System.out.println("Enter the Name of the Book you want to edit");
+        Boolean validInput = false;
+        String itemType ="";
+        String iType = "";
+
+        //Have the user enter what item type this wish to edit
+        while(validInput == false){
+            System.out.println("Enter what item type you wish to edit(LB,P,A)");
+            iType = scanner.next();
+
+            if(iType.equals("LB") || iType.equals("P") || iType.equals("A")){
+                validInput = true;
+            }
+
+            else{
+                System.out.println("Invalid Input");
+            }
+        }
+        validInput = false;
+
+        //Enter if an libray item is being edited
+        if(iType.equals("LB")){
+            while(validInput == false){
+            System.out.println("Enter the type of Item(B,P)");
+            itemType = scanner.next();
             
-        itemName = scanner.next();
-    
-    
-        ArrayList<Book> bList;
-        bList = l.getBookList();
-        for (Book b : bList) {
-            if (b.getTitle().equals(itemName))
-            {
-                valid = true;
-                System.out.println("Enter the Item ID");
-                b.setItemID(scanner.nextInt());
-    
-                System.out.println("Enter the title");
-                b.setTitle(scanner.next());
-    
-                System.out.println("Enter the Item ISBN");
-                b.setIsbn(scanner.next());
-    
-                System.out.println("Enter the amount of copies");
-                b.setCopyNum(scanner.nextInt());
+            
+            if(itemType.equals("B") || itemType.equals("P")){
+                validInput = true;
             }
-          }
-    
-          if(valid == false){
-            System.out.println("Book does not exist");
-          }
-        }
-         else if(itemType.equals("P")){
-          System.out.println("Enter the Name of the Periodical you want to Remove");
-      
-          itemName = scanner.next();
-      
-      
-          ArrayList<Periodical> pList;
-          pList = l.getPeriodicalList();
-          for (Periodical p : pList) {
-              if (p.getTitle().equals(itemName));
-              {
-                  valid = true;
-                  System.out.println("Enter the Item ID");
-                  p.setItemID(scanner.nextInt());
-      
-                  System.out.println("Enter the title");
-                  p.setTitle(scanner.next());
-      
-                  System.out.println("Enter the Item ISBN");
-                  p.setIsbn(scanner.next());
-      
-                  System.out.println("Enter the amount of copies");
-                  p.setCopyNum(scanner.nextInt());
-              }
+
+            else{
+                System.out.println("Invalid input");
             }
-      
+            }
+            validInput = false;
+            //Enter if the library item is a book
+            if(itemType.equals("B")){
+            System.out.println("Enter the Name of the Book you want to edit");
+                
+            itemName = scanner.next();
+        
+        
+            ArrayList<Book> bList;
+            bList = l.getBookList();
+            for (Book b : bList) {
+                //Edit the values
+                if (b.getTitle().equals(itemName))
+                {
+                    valid = true;
+                    System.out.println("Enter the Item ID");
+                    b.setItemID(scanner.nextInt());
+        
+                    System.out.println("Enter the title");
+                    b.setTitle(scanner.next());
+        
+                    System.out.println("Enter the Item ISBN");
+                    b.setIsbn(scanner.next());
+        
+                    System.out.println("Enter the amount of copies");
+                    b.setCopyNum(scanner.nextInt());
+                }
+            }
+        
+            //Enter if could not find the book
             if(valid == false){
-              System.out.println("Periodical does not exist");
+                System.out.println("Book does not exist");
+            }
+            }
+            //Enter if a periodical is being edited
+            else if(itemType.equals("P")){
+            System.out.println("Enter the Name of the Periodical you want to Edit");
+        
+            itemName = scanner.next();
+        
+        
+            ArrayList<Periodical> pList;
+            pList = l.getPeriodicalList();
+            for (Periodical p : pList) {
+
+                //Edit the values
+                if (p.getTitle().equals(itemName))
+                {
+                    valid = true;
+                    System.out.println("Enter the Item ID");
+                    p.setItemID(scanner.nextInt());
+        
+                    System.out.println("Enter the title");
+                    p.setTitle(scanner.next());
+        
+                    System.out.println("Enter the Item ISBN");
+                    p.setIsbn(scanner.next());
+        
+                    System.out.println("Enter the amount of copies");
+                    p.setCopyNum(scanner.nextInt());
+                }
+                }
+        
+                //Enter if could not find periodical
+                if(valid == false){
+                System.out.println("Periodical does not exist");
+                }
             }
         }
+
+        //Enter if the user wants to edit a patron
+        else if (iType.equals("P")){
+            int patronId;
+
+            System.out.println("Enter the patron's ID");
+
+            patronId = scanner.nextInt();
+
+            ArrayList<Patron> pList;
+            pList = l.getPatronList();
+            for (Patron p : pList) {
+
+                //Edit the values
+                if (p.getPatronID() == patronId)
+                {
+                    valid = true;
+                    System.out.println("Enter the patron ID");
+                    p.setPatronID(scanner.nextInt());
+        
+                    System.out.println("Enter the patron name");
+                    p.setName(scanner.next());
+        
+                    System.out.println("Enter the patron address");
+                    p.setAddress(scanner.next());
+        
+                    System.out.println("Enter the patron phone number");
+                    p.setPhoneNum(scanner.next());
+                }
+                }
+        
+                //Enter if could not find patron
+                if(valid == false){
+                System.out.println("Patron does not exist");
+                }
+            }
+
+            //Enter if an author is being edited
+            else if (iType.equals("A")){
+                String name;
     
-        else{
-            System.out.println("Invalid input");
+                System.out.println("Enter the Author's name");
+    
+                name = scanner.next();
+    
+                ArrayList<Author> aList;
+                aList = l.getAuthorList();
+                for (Author a : aList) {
+    
+                    //Edit the values
+                    if (a.getName().equals(name))
+                    {
+                        valid = true;
+                        System.out.println("Enter the Author's name");
+                        a.setName(scanner.next());
+            
+                        System.out.println("Enter the Authors Date of birth");
+                        a.setDOB(scanner.next());
+            
+                       
+                    }
+                    }
+            
+                    //Enter if could not find author
+                    if(valid == false){
+                    System.out.println("Author does not exist");
+                    }
+                }
         }
-    }
+    
 
     public static void borrowItem(Library l){
         Scanner scanner = new Scanner(System.in);
@@ -522,7 +832,7 @@ public static void removeItem(Library l){
                                     validCopies = true;
                                 }
                             }
-                            for(int i =1;i<= amountCopies; i++)
+                            for(int i =1;i<= amountCopies; i++){
                             b.Borrow(p);
                             }
                         }
@@ -531,7 +841,7 @@ public static void removeItem(Library l){
                             System.out.println("Patron does not exist");
                         }
                         }
-
+                    }
                         else if(addPat.equals("N")){
                             int pId;
                             String name;
@@ -674,9 +984,24 @@ public static void removeItem(Library l){
                             if(pId == per.getPatronID()){
                             pValid = true;
 
-                            p.Borrow(per);
+                            boolean validCopies = false;
+                            int amountCopies = 0;
+                            while(validCopies == false){
 
-                            per.addBorrowedItem(p);
+                                System.out.println("Enter the amount of copies you wish to borrow");
+                                amountCopies = scanner.nextInt();
+
+                                if (amountCopies > (p.getCopyNum()-p.getBorrowAmount())){
+                                    System.out.println("Cannot borrow this amount of copies");
+                                    
+                                }
+                                else{
+                                    validCopies = true;
+                                }
+                            }
+                            for(int i =1;i<= amountCopies; i++){
+                            p.Borrow(per);
+                            }
                             }
                         }
 
@@ -708,7 +1033,7 @@ public static void removeItem(Library l){
                             System.out.println("Enter the type of patron(S,E)");
                             
                             pType = scanner.next();
-
+                            int amountCopies = 0;
                             if(pType.equals("S")){
                                 int studentID;
                                 String school;
@@ -723,8 +1048,24 @@ public static void removeItem(Library l){
                                 grade = scanner.nextInt();
 
                                 Student s = new Student (pId,name,address,phoneNum,studentID, school, grade);
-                                p.Borrow(s);
                                 l.addPatron(s);
+                                boolean validCopies = false;
+                                while(validCopies == false){
+
+                                System.out.println("Enter the amount of copies you wish to borrow");
+                                amountCopies = scanner.nextInt();
+
+                                if (amountCopies > (p.getCopyNum()-p.getBorrowAmount())){
+                                    System.out.println("Cannot borrow this amount of copies");
+                                    
+                                }
+                                else{
+                                    validCopies = true;
+                                }
+                            }
+                            for(int i =1;i<= amountCopies; i++){
+                            p.Borrow(s);
+                            }  
                                 
                             }
 
@@ -740,7 +1081,23 @@ public static void removeItem(Library l){
                                  position = scanner.next();
                                  Employee e = new Employee(pId,name,address,phoneNum,empID, position);
                                  l.addPatron(e);
-                                 p.Borrow(e);
+                                 boolean validCopies = false;
+                                while (validCopies == false){
+                                 System.out.println("Enter the amount of copies you wish to borrow");
+                                 amountCopies = scanner.nextInt();
+
+                                if (amountCopies > (p.getCopyNum()-p.getBorrowAmount())){
+                                    System.out.println("Cannot borrow this amount of copies");
+                                    
+                                }
+                                else{
+                                    validCopies = true;
+                                }
+                            }
+                            
+                            for(int i =1;i<= amountCopies; i++){
+                            p.Borrow(e);
+                            }  
                             }
 
                             else{
@@ -802,10 +1159,28 @@ public static void removeItem(Library l){
                         ArrayList <Patron> pList = l.getPatronList();
                         boolean pValid = false;
                         for(Patron p: pList){
-                            if(pId == p.getPatronID()){
-                            pValid = true;
 
-                            b.Borrow(p);
+                            if(pId == p.getPatronID()){
+                                pValid = true;
+                                boolean validCopies = false;
+                                int amountCopies = 0;
+                                while(validCopies == false){
+    
+                                    System.out.println("Enter the amount of copies you wish to borrow");
+                                    amountCopies = scanner.nextInt();
+    
+                                    if (amountCopies > (b.getCopyNum()-b.getBorrowAmount())){
+                                        System.out.println("Cannot borrow this amount of copies");
+                                        
+                                    }
+                                    else{
+                                        validCopies = true;
+                                    }
+                                }
+                                for(int i =1;i<= amountCopies; i++){
+                                b.Borrow(p);
+                                }
+                                
                             }
                         }
 
@@ -852,8 +1227,24 @@ public static void removeItem(Library l){
                                 grade = scanner.nextInt();
 
                                 Student s = new Student(pId,name,address,phoneNum,studentID, school, grade);;
+                                boolean validCopies = false;
+                                int amountCopies = 0;
+                                while(validCopies == false){
+    
+                                    System.out.println("Enter the amount of copies you wish to borrow");
+                                    amountCopies = scanner.nextInt();
+    
+                                    if (amountCopies > (b.getCopyNum()-b.getBorrowAmount())){
+                                        System.out.println("Cannot borrow this amount of copies");
+                                        
+                                    }
+                                    else{
+                                        validCopies = true;
+                                    }
+                                }
+                                for(int i =1;i<= amountCopies; i++){
                                 b.Borrow(s);
-                                l.addPatron(s);  
+                                }  
                             }
 
                             else if(pType.equals("E")){
@@ -868,8 +1259,24 @@ public static void removeItem(Library l){
                                  position = scanner.next();
                                  Employee e = new Employee(pId,name,address,phoneNum,empID, position);
                                  
-                                 b.Borrow(e);
-                                 l.addPatron(e);
+                                 boolean validCopies = false;
+                                int amountCopies = 0;
+                                while(validCopies == false){
+    
+                                    System.out.println("Enter the amount of copies you wish to borrow");
+                                    amountCopies = scanner.nextInt();
+    
+                                    if (amountCopies > (b.getCopyNum()-b.getBorrowAmount())){
+                                        System.out.println("Cannot borrow this amount of copies");
+                                        
+                                    }
+                                    else{
+                                        validCopies = true;
+                                    }
+                                }
+                                for(int i =1;i<= amountCopies; i++){
+                                b.Borrow(e);
+                                }
                             }
 
                             else{
@@ -921,10 +1328,24 @@ public static void removeItem(Library l){
                         for(Patron per: perList){
                             if(pId == per.getPatronID()){
                             pValid = true;
+                            boolean validCopies = false;
+                            int amountCopies = 0;
+                            while(validCopies == false){
 
+                                System.out.println("Enter the amount of copies you wish to borrow");
+                                amountCopies = scanner.nextInt();
+
+                                if (amountCopies > (p.getCopyNum()-p.getBorrowAmount())){
+                                    System.out.println("Cannot borrow this amount of copies");
+                                    
+                                }
+                                else{
+                                    validCopies = true;
+                                }
+                            }
+                            for(int i =1;i<= amountCopies; i++){
                             p.Borrow(per);
-
-                            per.addBorrowedItem(p);
+                            }
                             }
                         }
 
@@ -971,8 +1392,25 @@ public static void removeItem(Library l){
                                 grade = scanner.nextInt();
 
                                 Student s = new Student (pId,name,address,phoneNum,studentID, school, grade);
-                                p.Borrow(s);
                                 l.addPatron(s);
+                                boolean validCopies = false;
+                                int amountCopies = 0;
+                                while(validCopies == false){
+    
+                                    System.out.println("Enter the amount of copies you wish to borrow");
+                                    amountCopies = scanner.nextInt();
+    
+                                    if (amountCopies > (p.getCopyNum()-p.getBorrowAmount())){
+                                        System.out.println("Cannot borrow this amount of copies");
+                                        
+                                    }
+                                    else{
+                                        validCopies = true;
+                                    }
+                                }
+                                for(int i =1;i<= amountCopies; i++){
+                                p.Borrow(s);
+                                }
                                 
                             }
 
@@ -988,7 +1426,24 @@ public static void removeItem(Library l){
                                  position = scanner.next();
                                  Employee e = new Employee(pId,name,address,phoneNum,empID, position);
                                  l.addPatron(e);
-                                 p.Borrow(e);
+                                 boolean validCopies = false;
+                                int amountCopies = 0;
+                                while(validCopies == false){
+    
+                                    System.out.println("Enter the amount of copies you wish to borrow");
+                                    amountCopies = scanner.nextInt();
+    
+                                    if (amountCopies > (p.getCopyNum()-p.getBorrowAmount())){
+                                        System.out.println("Cannot borrow this amount of copies");
+                                        
+                                    }
+                                    else{
+                                        validCopies = true;
+                                    }
+                                }
+                                for(int i =1;i<= amountCopies; i++){
+                                p.Borrow(e);
+                                }
                             }
 
                             else{
@@ -1032,7 +1487,7 @@ public static void removeItem(Library l){
 
             if(aBookList.size()>0){
              for(LibaryItem p: aBookList){
-                System.out.println(p.getTitle() + " " + p.getAuthor() + " " + p.getIsbn() + " " + " Total copies: " + p.getCopyNum() + "Total copies currently avaible: " + (p.getCopyNum() + p.getBorrowAmount()));
+                System.out.println(p.getTitle() + " " + p.getAuthor() + " " + p.getIsbn() + " " + " Total copies: " + p.getCopyNum() + "Total copies currently avaible: " + (p.getCopyNum() - p.getBorrowAmount()));
              }
 
              String choice;
@@ -1058,12 +1513,27 @@ public static void removeItem(Library l){
                         for(Patron per: perList){
                             if(pId == per.getPatronID()){
                             pValid = true;
+                            int amountCopies = 0;
+                            boolean validCopies = false;
+                            while (validCopies == false) {
+                                
+                            System.out.println("Enter the amount of copies you wish to borrow");
+                            amountCopies = scanner.nextInt();
 
+                                if (amountCopies > (p.getCopyNum()-p.getBorrowAmount())){
+                                    System.out.println("Cannot borrow this amount of copies");
+                                    
+                                }
+                                else{
+                                    validCopies = true;
+                                }
+                            
+                            for(int i =1;i<= amountCopies; i++){
                             p.Borrow(per);
-
-                            per.addBorrowedItem(p);
+                            }  
                             }
                         }
+                    }
 
                         if (pValid == false){
                             System.out.println("Patron does not exist");
@@ -1108,8 +1578,26 @@ public static void removeItem(Library l){
                                 grade = scanner.nextInt();
 
                                 Student s = new Student (pId,name,address,phoneNum,studentID, school, grade);
-                                p.Borrow(s);
                                 l.addPatron(s);
+                                int amountCopies = 0;
+                            boolean validCopies = false;
+                            while (validCopies == false) {
+                                
+                            System.out.println("Enter the amount of copies you wish to borrow");
+                            amountCopies = scanner.nextInt();
+
+                                if (amountCopies > (p.getCopyNum()-p.getBorrowAmount())){
+                                    System.out.println("Cannot borrow this amount of copies");
+                                    
+                                }
+                                else{
+                                    validCopies = true;
+                                }
+                            
+                            for(int i =1;i<= amountCopies; i++){
+                            p.Borrow(s);
+                            }  
+                            }
                                 
                             }
 
@@ -1125,8 +1613,26 @@ public static void removeItem(Library l){
                                  position = scanner.next();
                                  Employee e = new Employee(pId,name,address,phoneNum,empID, position);
                                  l.addPatron(e);
+                                 int amountCopies = 0;
+                                 boolean validCopies = false;
+                                 while (validCopies == false) {
+                                     
+                                 System.out.println("Enter the amount of copies you wish to borrow");
+                                 amountCopies = scanner.nextInt();
+     
+                                     if (amountCopies > (p.getCopyNum()-p.getBorrowAmount())){
+                                         System.out.println("Cannot borrow this amount of copies");
+                                         
+                                     }
+                                     else{
+                                         validCopies = true;
+                                     }
+                                 
+                                 for(int i =1;i<= amountCopies; i++){
                                  p.Borrow(e);
+                                 }  
                             }
+                        }
 
                             else{
                                 System.out.println("Invalid Input");
@@ -1154,39 +1660,70 @@ public static void removeItem(Library l){
             }
         }
     }
-
+    //Method to borrow library items
     public static void returnLibraryItem(Library l){
         Scanner scanner = new Scanner(System.in);
         int parId;
         ArrayList<Patron> parList = l.getPatronList();
 
+        //Have the user enter the patron's id
         System.out.println("Enter the Patron's id");
         parId = scanner.nextInt();
 
         for(Patron par: parList){
+            //Search the system for the inputed id
             if(par.getPatronID() == parId){
                 String title;
                 ArrayList<LibaryItem> itemList = par.getBorrowedList();
                 boolean removeBook = false;
                 LibaryItem lI = new LibaryItem();
 
+                //Display all the items the patron has borrowed
                 for(LibaryItem i: itemList){
                     System.out.println(i.getTitle() + " Author: " + i.getAuthor().getName() + " " + i.getIsbn());
                 }
 
+                //Have the user input the item they wish to return
                 System.out.println("Enter the title of the book you wish to return");
                 title = scanner.next();
 
+                int copyAmount = 0;
+
+                //Obtian how many of the item the user has borrowed
                 for(LibaryItem i : itemList){
                     if(i.getTitle().equals(title)){
                         removeBook = true;
                         lI = i;
+                        copyAmount++;
                     }
                 }
 
+                
                 if(removeBook == true){
+                    boolean validAmount = false;
+                    int amountRemove = 0;
+                    while(validAmount == false){
+
+                        //Have the user enter how many items they wish to return
+                        System.out.println("Enter the amount of copies you wish to be returned");
+                        amountRemove = scanner.nextInt();
+
+                        //Enter if the user has inputed a value greater than the amount they have borrowed
+                        if(copyAmount<amountRemove){
+                            System.out.println("The patron has not borrowed that amount of copies");
+
+                        }
+
+                        else{
+                            validAmount = true;
+                        }
+                    }
+
+                    //return the item
+                    for(int i= 1; i<= amountRemove;i++){
                     par.removeBorrowedItem(lI);
                     lI.Return();
+                    }
                 }
 
                 else{
@@ -1209,7 +1746,7 @@ public static void removeItem(Library l){
 
         a1.addWrittenItem(b1);
         a1.addWrittenItem(p1);
-       // b1.Borrow(pa1);
+        b1.Borrow(pa1);
         Library l = new Library(b1, p1, pa1, a1);
 
         Scanner scanner = new Scanner(System.in);
