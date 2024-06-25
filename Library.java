@@ -95,6 +95,7 @@ public void addBook(Book book) {
         if (authorList.contains(author)) {
             
             ArrayList<Book> removeBList = new ArrayList<Book>();
+            ArrayList<LibaryItem> safeItem = new ArrayList<LibaryItem>();
             for(Book i: bookList){
                 if(i.getAuthor().getName().equals(author.getName())){
                 removeBList.add(i);
@@ -105,8 +106,9 @@ public void addBook(Book book) {
             for(Patron p: patronList){
                 ArrayList<LibaryItem> iList = p.getBorrowedList();
                 for(LibaryItem i: iList){
-                    if(i.getAuthor().getName().equals(author.getName())){
-                        i.Return();
+                    if(!i.getAuthor().getName().equals(author.getName())){
+                        System.out.println("Enter");
+                        safeItem.add(i);
                     }
                 }
             }
@@ -122,6 +124,19 @@ public void addBook(Book book) {
             }
             for(Periodical i: removePList){
                 this.removePeriodical(i);
+            }
+            for(Patron p: patronList){
+                ArrayList<LibaryItem> iList = p.getBorrowedList();
+                for(LibaryItem i: iList){
+                    if(!i.getAuthor().getName().equals(author.getName())){
+                        System.out.println("Enter");
+                        safeItem.add(i);
+                    }
+                }
+            }
+
+            for(Patron p: patronList){
+                p.setBorrowedList(safeItem);
             }
             authorList.remove(author);
             System.out.println("Author removed");

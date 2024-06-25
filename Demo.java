@@ -10,9 +10,27 @@ public class Demo {
 { Scanner scanner = new Scanner(System.in);
     String itemType = "";
     String choice = "";
+    String itemChoice ="";
     boolean validInput = false;
 
-    //Obtian the type of publication
+    //Enter the type of data being added
+    while(validInput == false){
+        System.out.println("Enter the type of data being added(LB,P)");
+        itemChoice = scanner.next();
+
+        if(itemChoice.equals("LB") || itemChoice.equals("P")){
+            validInput = true;
+        }
+
+        else{
+            System.out.println("Invalid Input");
+        }
+    }
+
+    validInput = false;
+
+    //Enter if a Library item is being added
+   if(itemChoice.equals("LB")){
     while(validInput == false){
     System.out.println("Is the libary Item a book or peridoical(B, P): ");
     itemType = scanner.next();
@@ -312,9 +330,11 @@ public class Demo {
             //Create the periodical
             Periodical p = new Periodical( itemID, title,  a, ISBN, publisher, copyNum, type, issueNum);
             l.addPeriodical(p);
-
-
             }
+
+            
+
+    }
             
 
         
@@ -416,6 +436,82 @@ public class Demo {
             l.addPeriodical(p);
 
 
+            }
+
+            //Enter if a patron is being added
+            if(itemChoice.equals("P")){
+                //Create the data for the new patron
+                int pId;
+                String name;
+                String address;
+                String phoneNum;
+                String pType ="";
+                System.out.println("Enter the patron Id");
+                
+                pId = scanner.nextInt();
+
+                System.out.println("Enter the patron's name");
+                name = scanner.next();
+
+                System.out.println("Enter the patron's address");
+                address = scanner.next();
+
+                System.out.println("Enter the phone number");
+                phoneNum = scanner.next();
+
+                //Enter the type of patron
+                while(validInput == false){
+                System.out.println("Enter the type of patron(S,E)");
+                
+                pType = scanner.next();
+                if(pType.equals("S") || pType.equals("E")){
+                    validInput = true;
+                }
+        
+                else{
+                    System.out.println("Invalid Input");
+                }
+                }
+
+                validInput = false;
+                
+
+                //Enter if the patron is a student
+                if(pType.equals("S")){
+                    int studentID;
+                    String school;
+                    int grade;
+                    System.out.println("Enter the patron's Student ID");
+                    studentID = scanner.nextInt();
+
+                    System.out.println("Enter the patron's school");
+                    school = scanner.next();
+
+                    System.out.println("Enter the patron's grade");
+                    grade = scanner.nextInt();
+
+                    //Create a student object with the inputed data
+                    Student s = new Student(pId,name,address,phoneNum,studentID, school, grade);
+                    l.addPatron(s);
+            
+                }
+
+                //Enter if the patron is a Employee
+                else if(pType.equals("E")){
+                        int empID;
+                        String position;
+
+                        System.out.println("Enter the employee ID");
+                        empID = scanner.nextInt();
+
+                        System.out.println("Enter the position");
+
+                        position = scanner.next();
+
+                        //Create an employee
+                        Employee e = new Employee(pId,name,address,phoneNum,empID, position);
+                        l.addPatron(e);
+                }
             }
         }
         
@@ -773,41 +869,95 @@ public static void removeItem(Library l){
                 }
         }
     
-
+        //Method to borrow items
     public static void borrowItem(Library l){
         Scanner scanner = new Scanner(System.in);
-        String type;
+        String type = "";
+        boolean validInput = false;
 
+        //Enter what search method to be sued
+        while(validInput == false){
         System.out.println("Enter what search method you would like to use(T,A,I)");
 
         type = scanner.next();
 
-        if(type.equals("T")){
-            String pubType;
+        if(type.equals("T") || type.equals("A") || type.equals("I")){
+            validInput = true;
+        }
 
+        else{
+            System.out.println("Invalid Input");
+        }
+        }
+        validInput = false;
+
+        //Enter if searching by title
+        if(type.equals("T")){
+            String pubType ="";
+
+            //Enter the type of library item
+            while(validInput == false){
             System.out.println("Enter the name of the type of puplication that is being borrowed(B,P)");
             pubType = scanner.next();
+            if(pubType.equals("B") || pubType.equals("P")){
+                validInput = true;
+            }
+    
+            else{
+                System.out.println("Invalid Input");
+            }
+            }
+            validInput = false;
 
+            //Enter if the item is a book
             if(pubType.equals("B")){
                 boolean valid = false;
                 String title;
                 System.out.println("Enter the title of the book");
                 title = scanner.next();
 
+                //Search the library for the book
                 ArrayList<Book> bList = l.getBookList();
                 for(Book b: bList){
+                    //Enter if found the book
                     if(title.equals(b.getTitle())){
                     valid = true;
-                    String borrow;
-                    System.out.println(b.getTitle() + " " + b.getAuthor().getName() + " " + b.getIsbn() + " " + " Total copies: " + b.getCopyNum() + " Total copies currently avaible: " + (b.getCopyNum() - b.getBorrowAmount()));
-                    System.out.println();
+                    String borrow ="";
+                    System.out.println(b.getTitle() + " " + b.getAuthor().getName() + " " + b.getIsbn() + " " + " Total copies: " + b.getCopyNum() + " Total copies currently available: " + (b.getCopyNum() - b.getBorrowAmount()));
+                    while(validInput == false){
                     System.out.println("Do you wish to borrow this book?(Y,N)");
                     borrow = scanner.next();
+                    
+                    if(borrow.equals("Y") || borrow.equals("N")){
+                        validInput = true;
+                    }
+            
+                    else{
+                        System.out.println("Invalid Input");
+                    }
+                    }
+                    validInput = false;
+                
 
+                    //Enter if the user wants to borrow the book
                     if(borrow.equals("Y")){
-                        String addPat;
+                        String addPat = "";
+
+                        //Have the user enter whether the patron is in the database or not
+                        while(validInput == false){
                         System.out.println("Is the Patron already in the System?(Y,N)");
                         addPat = scanner.next();
+                        if(addPat.equals("Y") || addPat.equals("N")){
+                            validInput = true;
+                        }
+                
+                        else{
+                            System.out.println("Invalid Input");
+                        }
+                        }
+
+                        validInput = false;
+                        //Enter if the patron is already in the system
                         if(addPat.equals("Y")){
                             int pId;
                         System.out.println("Enter the patron's Id");
@@ -819,6 +969,8 @@ public static void removeItem(Library l){
                             if(pId == p.getPatronID()){
                             pValid = true;
                             boolean validCopies = false;
+
+                            //Enter the amount of copies to be borrowed
                             while(validCopies == false){
 
                                 System.out.println("Enter the amount of copies you wish to borrow");
@@ -847,7 +999,7 @@ public static void removeItem(Library l){
                             String name;
                             String address;
                             String phoneNum;
-                            String pType;
+                            String pType ="";
                             int amountCopies = 0;
                             
 
@@ -864,10 +1016,24 @@ public static void removeItem(Library l){
                             System.out.println("Enter the phone number");
                             phoneNum = scanner.next();
 
+                            //Enter the type of patron
+                            while(validInput == false){
                             System.out.println("Enter the type of patron(S,E)");
                             
                             pType = scanner.next();
+                            if(pType.equals("S") || pType.equals("E")){
+                                validInput = true;
+                            }
+                    
+                            else{
+                                System.out.println("Invalid Input");
+                            }
+                            }
+    
+                            validInput = false;
+                            
 
+                            //Enter if the patron is a student
                             if(pType.equals("S")){
                                 int studentID;
                                 String school;
@@ -881,9 +1047,12 @@ public static void removeItem(Library l){
                                 System.out.println("Enter the patron's grade");
                                 grade = scanner.nextInt();
 
+                                //Create a student object with the inputed data
                                 Student s = new Student(pId,name,address,phoneNum,studentID, school, grade);
                                 l.addPatron(s);
                                 boolean validCopies = false;
+
+                                //Enter the amount of copies to be borrowed
                                 while(validCopies == false){
 
                                 System.out.println("Enter the amount of copies you wish to borrow");
@@ -897,11 +1066,14 @@ public static void removeItem(Library l){
                                     validCopies = true;
                                 }
                             }
+
+                            //Borrow the books
                             for(int i =1;i<= amountCopies; i++){
                             b.Borrow(s);
                             }  
                             }
 
+                            //Enter if the patron is a Employee
                             else if(pType.equals("E")){
                                  int empID;
                                  String position;
@@ -912,10 +1084,14 @@ public static void removeItem(Library l){
                                  System.out.println("Enter the position");
 
                                  position = scanner.next();
+
+                                 //Create an employee
                                  Employee e = new Employee(pId,name,address,phoneNum,empID, position);
                                  l.addPatron(e);
                                  
                                  boolean validCopies = false;
+
+                                 //Enter the amount of copies to be borrowed
                             while(validCopies == false){
 
                                 System.out.println("Enter the amount of copies you wish to borrow");
@@ -929,241 +1105,325 @@ public static void removeItem(Library l){
                                     validCopies = true;
                                 }
                             }
+
+                            //Borrow the books
                             for(int i =1;i<= amountCopies; i++){
                             b.Borrow(e);
                             }
                             }
 
-                            else{
-                                System.out.println("Invalid Input");
-                            }
                             
-
-
-                        }
-
-                        else{
-                            System.out.println("Invalid input");
-                        }
                     }
 
                 }
 
+                //Enter if could not find book
+                
+                }
                 if (valid == false){
                     System.out.println("Book is not in data base");
                 }
-                }
             }
+        }
+            //Enter if the item is a periodical
             else if (pubType.equals("P")){
                 boolean valid = false;
                 String title;
+
+                //Enter the title of the periodical
                 System.out.println("Enter the title of the periodical");
                 title = scanner.next();
 
                 ArrayList<Periodical> pList = l.getPeriodicalList();
+                //Search the data base for the periodical
                 for(Periodical p: pList){
+                    //Enter if found the periodical
                     if(title.equals(p.getTitle())){
                     valid = true;
-                    String borrow;
-                    System.out.println(p.getTitle() + " " + p.getAuthor() + " " + p.getIsbn() + " " + " Total copies: " + p.getCopyNum() + "Total copies currently avaible: " + (p.getCopyNum() + p.getBorrowAmount()));
-                    System.out.println();
+                    String borrow = "";
+                    System.out.println(p.getTitle() + " " + p.getAuthor().getName() + " " + p.getIsbn() + " " + " Total copies: " + p.getCopyNum() + " Total copies currently available: " + (p.getCopyNum() + p.getBorrowAmount()));
+
+                    //Enter if the user wants to borrow item
+                    while(validInput == false){
                     System.out.println("Do you wish to borrow this periodical?(Y,N)");
                     borrow = scanner.next();
 
+                    if(borrow.equals("Y") || borrow.equals("N")){
+                        validInput = true;
+                    }
+            
+                    else{
+                        System.out.println("Invalid Input");
+                    }
+                    }
+                    validInput = false;
+
                     if(borrow.equals("Y")){
-                        String addPat;
-                        System.out.println("Is the Patron already in the System?(Y,N)");
-                        addPat = scanner.next();
-                        if(addPat.equals("Y")){
-                            int pId;
-                        System.out.println("Enter the patron's Id");
-                        pId = scanner.nextInt();
-                        ArrayList <Patron> perList = l.getPatronList();
-                        boolean pValid = false;
-                        for(Patron per: perList){
-                            if(pId == per.getPatronID()){
-                            pValid = true;
-
-                            boolean validCopies = false;
-                            int amountCopies = 0;
-                            while(validCopies == false){
-
-                                System.out.println("Enter the amount of copies you wish to borrow");
-                                amountCopies = scanner.nextInt();
-
-                                if (amountCopies > (p.getCopyNum()-p.getBorrowAmount())){
-                                    System.out.println("Cannot borrow this amount of copies");
-                                    
-                                }
-                                else{
-                                    validCopies = true;
-                                }
+                        String addPat = "";
+                        //Have the user enter whether the patron is in the database or not
+                        while(validInput == false){
+                            System.out.println("Is the Patron already in the System?(Y,N)");
+                            addPat = scanner.next();
+                            if(addPat.equals("Y") || addPat.equals("N")){
+                                validInput = true;
                             }
-                            for(int i =1;i<= amountCopies; i++){
-                            p.Borrow(per);
-                            }
-                            }
-                        }
-
-                        if (pValid == false){
-                            System.out.println("Patron does not exist");
-                        }
-                        }
-
-                        else if(addPat.equals("N")){
-                            int pId;
-                            String name;
-                            String address;
-                            String phoneNum;
-                            String pType;
-
-                            System.out.println("Enter the patron Id");
-                            
-                            pId = scanner.nextInt();
-
-                            System.out.println("Enter the patron's name");
-                            name = scanner.next();
-
-                            System.out.println("Enter the patron's address");
-                            address = scanner.next();
-
-                            System.out.println("Enter the phone number");
-                            phoneNum = scanner.next();
-
-                            System.out.println("Enter the type of patron(S,E)");
-                            
-                            pType = scanner.next();
-                            int amountCopies = 0;
-                            if(pType.equals("S")){
-                                int studentID;
-                                String school;
-                                int grade;
-                                System.out.println("Enter the patron's Student ID");
-                                studentID = scanner.nextInt();
-
-                                System.out.println("Enter the patron's school");
-                                school = scanner.next();
-
-                                System.out.println("Enter the patron's grade");
-                                grade = scanner.nextInt();
-
-                                Student s = new Student (pId,name,address,phoneNum,studentID, school, grade);
-                                l.addPatron(s);
-                                boolean validCopies = false;
-                                while(validCopies == false){
-
-                                System.out.println("Enter the amount of copies you wish to borrow");
-                                amountCopies = scanner.nextInt();
-
-                                if (amountCopies > (p.getCopyNum()-p.getBorrowAmount())){
-                                    System.out.println("Cannot borrow this amount of copies");
-                                    
-                                }
-                                else{
-                                    validCopies = true;
-                                }
-                            }
-                            for(int i =1;i<= amountCopies; i++){
-                            p.Borrow(s);
-                            }  
-                                
-                            }
-
-                            else if(pType.equals("E")){
-                                 int empID;
-                                 String position;
-
-                                 System.out.println("Enter the employee ID");
-                                 empID = scanner.nextInt();
-
-                                 System.out.println("Enter the position");
-
-                                 position = scanner.next();
-                                 Employee e = new Employee(pId,name,address,phoneNum,empID, position);
-                                 l.addPatron(e);
-                                 boolean validCopies = false;
-                                while (validCopies == false){
-                                 System.out.println("Enter the amount of copies you wish to borrow");
-                                 amountCopies = scanner.nextInt();
-
-                                if (amountCopies > (p.getCopyNum()-p.getBorrowAmount())){
-                                    System.out.println("Cannot borrow this amount of copies");
-                                    
-                                }
-                                else{
-                                    validCopies = true;
-                                }
-                            }
-                            
-                            for(int i =1;i<= amountCopies; i++){
-                            p.Borrow(e);
-                            }  
-                            }
-
+                    
                             else{
                                 System.out.println("Invalid Input");
                             }
-                            
-
-
+                            }
+    
+                            validInput = false;
+                            //Enter if the patron is already in the system
+                            if(addPat.equals("Y")){
+                                int pId;
+                            System.out.println("Enter the patron's Id");
+                            pId = scanner.nextInt();
+                            ArrayList <Patron> perList = l.getPatronList();
+                            boolean pValid = false;
+                            for(Patron per: perList){
+                                int amountCopies = 0;
+                                if(pId == per.getPatronID()){
+                                pValid = true;
+                                boolean validCopies = false;
+    
+                                //Enter the amount of copies to be borrowed
+                                while(validCopies == false){
+    
+                                    System.out.println("Enter the amount of copies you wish to borrow");
+                                    amountCopies = scanner.nextInt();
+    
+                                    if (amountCopies > (p.getCopyNum()-p.getBorrowAmount())){
+                                        System.out.println("Cannot borrow this amount of copies");
+                                        
+                                    }
+                                    else{
+                                        validCopies = true;
+                                    }
+                                }
+                                for(int i =1;i<= amountCopies; i++){
+                                p.Borrow(per);
+                                }
+                            }
+    
+                            if (pValid == false){
+                                System.out.println("Patron does not exist");
+                            }
+                            }
                         }
+                        else if(addPat.equals("N")){
+                                int pId;
+                                String name;
+                                String address;
+                                String phoneNum;
+                                String pType ="";
+                                int amountCopies = 0;
+                                
+    
+                                System.out.println("Enter the patron Id");
+                                
+                                pId = scanner.nextInt();
+    
+                                System.out.println("Enter the patron's name");
+                                name = scanner.next();
+    
+                                System.out.println("Enter the patron's address");
+                                address = scanner.next();
+    
+                                System.out.println("Enter the phone number");
+                                phoneNum = scanner.next();
+    
+                                //Enter the type of patron
+                                while(validInput == false){
+                                System.out.println("Enter the type of patron(S,E)");
+                                
+                                pType = scanner.next();
+                                if(pType.equals("S") || pType.equals("E")){
+                                    validInput = true;
+                                }
+                        
+                                else{
+                                    System.out.println("Invalid Input");
+                                }
+                                }
+        
+                                validInput = false;
+                                
+    
+                                //Enter if the patron is a student
+                                if(pType.equals("S")){
+                                    int studentID;
+                                    String school;
+                                    int grade;
+                                    System.out.println("Enter the patron's Student ID");
+                                    studentID = scanner.nextInt();
+    
+                                    System.out.println("Enter the patron's school");
+                                    school = scanner.next();
+    
+                                    System.out.println("Enter the patron's grade");
+                                    grade = scanner.nextInt();
+    
+                                    //Create a student object with the inputed data
+                                    Student s = new Student(pId,name,address,phoneNum,studentID, school, grade);
+                                    l.addPatron(s);
+                                    boolean validCopies = false;
+    
+                                    //Enter the amount of copies to be borrowed
+                                    while(validCopies == false){
+    
+                                    System.out.println("Enter the amount of copies you wish to borrow");
+                                    amountCopies = scanner.nextInt();
+    
+                                    if (amountCopies > (p.getCopyNum()-p.getBorrowAmount())){
+                                        System.out.println("Cannot borrow this amount of copies");
+                                        
+                                    }
+                                    else{
+                                        validCopies = true;
+                                    }
+                                }
+    
+                                //Borrow the periodicals
+                                for(int i =1;i<= amountCopies; i++){
+                                p.Borrow(s);
+                                }  
+                                }
+    
+                                //Enter if the patron is a Employee
+                                else if(pType.equals("E")){
+                                     int empID;
+                                     String position;
+    
+                                     System.out.println("Enter the employee ID");
+                                     empID = scanner.nextInt();
+    
+                                     System.out.println("Enter the position");
+    
+                                     position = scanner.next();
+    
+                                     //Create an employee
+                                     Employee e = new Employee(pId,name,address,phoneNum,empID, position);
+                                     l.addPatron(e);
+                                     
+                                     boolean validCopies = false;
+    
+                                    //Enter the amount of copies to be borrowed
+                                while(validCopies == false){
+    
+                                    System.out.println("Enter the amount of copies you wish to borrow");
+                                    amountCopies = scanner.nextInt();
+    
+                                    if (amountCopies > (p.getCopyNum()-p.getBorrowAmount())){
+                                        System.out.println("Cannot borrow this amount of copies");
+                                        
+                                    }
+                                    else{
+                                        validCopies = true;
+                                    }
+                                }
+    
+                                //Borrow the periodicals
+                                for(int i =1;i<= amountCopies; i++){
+                                p.Borrow(e);
+                                }
+                            }
 
-                        else{
-                            System.out.println("Invalid input");
-                        }
                     }
 
                 }
 
+                
+                }
                 if (valid == false){
                     System.out.println("Periodical is not in data base");
                 }
                 }
             }
-            
-            else{
-                System.out.println("Invalid input");
-            }
         }
 
+        //Enter if searching by ISBN
         if(type.equals("I")){
-            String pubType;
+            String pubType ="";
 
+            //Enter the type of library item
+            while(validInput == false){
             System.out.println("Enter the name of the type of puplication that is being borrowed(B,P)");
             pubType = scanner.next();
+            if(pubType.equals("B") || pubType.equals("P")){
+                validInput = true;
+            }
+    
+            else{
+                System.out.println("Invalid Input");
+            }
+            }
+            validInput = false;
 
+            //Enter if the item is a book
             if(pubType.equals("B")){
                 boolean valid = false;
                 String isbn;
+                //Enter the ISBN of the book
                 System.out.println("Enter the ISBN of the book");
                 isbn = scanner.next();
 
                 ArrayList<Book> bList = l.getBookList();
+
+                //Search the database for the book
                 for(Book b: bList){
                     if(isbn.equals(b.getIsbn())){
                     valid = true;
-                    String borrow;
-                    System.out.println(b.getTitle() + " " + b.getAuthor().getName() + " " + b.getIsbn() + " " + " Total copies: " + b.getCopyNum() + " Total copies currently avaible: " + (b.getCopyNum() - b.getBorrowAmount()));
-                    System.out.println();
+                    String borrow ="";
+                    System.out.println(b.getTitle() + " " + b.getAuthor().getName() + " " + b.getIsbn() + " " + " Total copies: " + b.getCopyNum() + " Total copies currently available: " + (b.getCopyNum() - b.getBorrowAmount()));
+
+                    //Have the user input if the book is to be borrowed
+                    while(validInput == false){
                     System.out.println("Do you wish to borrow this book?(Y,N)");
                     borrow = scanner.next();
+                    
+                    if(borrow.equals("Y") || borrow.equals("N")){
+                        validInput = true;
+                    }
+            
+                    else{
+                        System.out.println("Invalid Input");
+                    }
+                    }
+                    validInput = false;
 
+
+                    //Enter if the book is going to be borrowed
                     if(borrow.equals("Y")){
-                        String addPat;
-                        System.out.println("Is the Patron already in the System?(Y,N)");
-                        addPat = scanner.next();
-                        if(addPat.equals("Y")){
-                            int pId;
-                        System.out.println("Enter the patron's Id");
-                        pId = scanner.nextInt();
-                        ArrayList <Patron> pList = l.getPatronList();
-                        boolean pValid = false;
-                        for(Patron p: pList){
-
-                            if(pId == p.getPatronID()){
+                        String addPat ="";
+                         //Have the user enter whether the patron is in the database or not
+                         while(validInput == false){
+                            System.out.println("Is the Patron already in the System?(Y,N)");
+                            addPat = scanner.next();
+                            if(addPat.equals("Y") || addPat.equals("N")){
+                                validInput = true;
+                            }
+                    
+                            else{
+                                System.out.println("Invalid Input");
+                            }
+                            }
+    
+                            validInput = false;
+                            //Enter if the patron is already in the system
+                            if(addPat.equals("Y")){
+                                int pId;
+                            System.out.println("Enter the patron's Id");
+                            pId = scanner.nextInt();
+                            ArrayList <Patron> pList = l.getPatronList();
+                            boolean pValid = false;
+                            for(Patron p: pList){
+                                int amountCopies = 0;
+                                if(pId == p.getPatronID()){
                                 pValid = true;
                                 boolean validCopies = false;
-                                int amountCopies = 0;
+    
+                                //Enter the amount of copies to be borrowed
                                 while(validCopies == false){
     
                                     System.out.println("Enter the amount of copies you wish to borrow");
@@ -1180,56 +1440,73 @@ public static void removeItem(Library l){
                                 for(int i =1;i<= amountCopies; i++){
                                 b.Borrow(p);
                                 }
-                                
+                            }
+    
+                            if (pValid == false){
+                                System.out.println("Patron does not exist");
+                            }
                             }
                         }
-
-                        if (pValid == false){
-                            System.out.println("Patron does not exist");
-                        }
-                        }
-
-                        else if(addPat.equals("N")){
-                            int pId;
-                            String name;
-                            String address;
-                            String phoneNum;
-                            String pType;
-
-                            System.out.println("Enter the patron Id");
-                            
-                            pId = scanner.nextInt();
-
-                            System.out.println("Enter the patron's name");
-                            name = scanner.next();
-
-                            System.out.println("Enter the patron's address");
-                            address = scanner.next();
-
-                            System.out.println("Enter the phone number");
-                            phoneNum = scanner.next();
-
-                            System.out.println("Enter the type of patron(S,E)");
-                            
-                            pType = scanner.next();
-
-                            if(pType.equals("S")){
-                                int studentID;
-                                String school;
-                                int grade;
-                                System.out.println("Enter the patron's Student ID");
-                                studentID = scanner.nextInt();
-
-                                System.out.println("Enter the patron's school");
-                                school = scanner.next();
-
-                                System.out.println("Enter the patron's grade");
-                                grade = scanner.nextInt();
-
-                                Student s = new Student(pId,name,address,phoneNum,studentID, school, grade);;
-                                boolean validCopies = false;
+                            else if(addPat.equals("N")){
+                                int pId;
+                                String name;
+                                String address;
+                                String phoneNum;
+                                String pType ="";
                                 int amountCopies = 0;
-                                while(validCopies == false){
+                                
+    
+                                System.out.println("Enter the patron Id");
+                                
+                                pId = scanner.nextInt();
+    
+                                System.out.println("Enter the patron's name");
+                                name = scanner.next();
+    
+                                System.out.println("Enter the patron's address");
+                                address = scanner.next();
+    
+                                System.out.println("Enter the phone number");
+                                phoneNum = scanner.next();
+    
+                                //Enter the type of patron
+                                while(validInput == false){
+                                System.out.println("Enter the type of patron(S,E)");
+                                
+                                pType = scanner.next();
+                                if(pType.equals("S") || pType.equals("E")){
+                                    validInput = true;
+                                }
+                        
+                                else{
+                                    System.out.println("Invalid Input");
+                                }
+                                }
+        
+                                validInput = false;
+                                
+    
+                                //Enter if the patron is a student
+                                if(pType.equals("S")){
+                                    int studentID;
+                                    String school;
+                                    int grade;
+                                    System.out.println("Enter the patron's Student ID");
+                                    studentID = scanner.nextInt();
+    
+                                    System.out.println("Enter the patron's school");
+                                    school = scanner.next();
+    
+                                    System.out.println("Enter the patron's grade");
+                                    grade = scanner.nextInt();
+    
+                                    //Create a student object with the inputed data
+                                    Student s = new Student(pId,name,address,phoneNum,studentID, school, grade);
+                                    l.addPatron(s);
+                                    boolean validCopies = false;
+    
+                                    //Enter the amount of copies to be borrowed
+                                    while(validCopies == false){
     
                                     System.out.println("Enter the amount of copies you wish to borrow");
                                     amountCopies = scanner.nextInt();
@@ -1242,25 +1519,32 @@ public static void removeItem(Library l){
                                         validCopies = true;
                                     }
                                 }
+    
+                                //Borrow the books
                                 for(int i =1;i<= amountCopies; i++){
                                 b.Borrow(s);
                                 }  
-                            }
-
-                            else if(pType.equals("E")){
-                                 int empID;
-                                 String position;
-
-                                 System.out.println("Enter the employee ID");
-                                 empID = scanner.nextInt();
-
-                                 System.out.println("Enter the position");
-
-                                 position = scanner.next();
-                                 Employee e = new Employee(pId,name,address,phoneNum,empID, position);
-                                 
-                                 boolean validCopies = false;
-                                int amountCopies = 0;
+                                }
+    
+                                //Enter if the patron is a Employee
+                                else if(pType.equals("E")){
+                                     int empID;
+                                     String position;
+    
+                                     System.out.println("Enter the employee ID");
+                                     empID = scanner.nextInt();
+    
+                                     System.out.println("Enter the position");
+    
+                                     position = scanner.next();
+    
+                                     //Create an employee
+                                     Employee e = new Employee(pId,name,address,phoneNum,empID, position);
+                                     l.addPatron(e);
+                                     
+                                     boolean validCopies = false;
+    
+                                     //Enter the amount of copies to be borrowed
                                 while(validCopies == false){
     
                                     System.out.println("Enter the amount of copies you wish to borrow");
@@ -1274,31 +1558,25 @@ public static void removeItem(Library l){
                                         validCopies = true;
                                     }
                                 }
+    
+                                //Borrow the books
                                 for(int i =1;i<= amountCopies; i++){
                                 b.Borrow(e);
                                 }
                             }
 
-                            else{
-                                System.out.println("Invalid Input");
-                            }
-                            
-
-
-                        }
-
-                        else{
-                            System.out.println("Invalid input");
-                        }
                     }
 
                 }
 
+                
+                }
                 if (valid == false){
                     System.out.println("Book is not in data base");
                 }
-                }
             }
+        }
+            //Enter if the item is a periodical
             else if (pubType.equals("P")){
                 boolean valid = false;
                 String isbn;
@@ -1309,92 +1587,54 @@ public static void removeItem(Library l){
                 for(Periodical p: pList){
                     if(isbn.equals(p.getIsbn())){
                     valid = true;
-                    String borrow;
-                    System.out.println(p.getTitle() + " " + p.getAuthor() + " " + p.getIsbn() + " " + " Total copies: " + p.getCopyNum() + "Total copies currently avaible: " + (p.getCopyNum() + p.getBorrowAmount()));
+                    String borrow = "";
+                    System.out.println(p.getTitle() + " " + p.getAuthor().getName() + " " + p.getIsbn() + " " + " Total copies: " + p.getCopyNum() + " Total copies currently available: " + (p.getCopyNum() + p.getBorrowAmount()));
                     System.out.println();
+                   //Enter if the user wants to borrow item
+                   while(validInput == false){
                     System.out.println("Do you wish to borrow this periodical?(Y,N)");
                     borrow = scanner.next();
 
+                    if(borrow.equals("Y") || borrow.equals("N")){
+                        validInput = true;
+                    }
+            
+                    else{
+                        System.out.println("Invalid Input");
+                    }
+                    }
+                    validInput = false;
+
                     if(borrow.equals("Y")){
-                        String addPat;
-                        System.out.println("Is the Patron already in the System?(Y,N)");
-                        addPat = scanner.next();
-                        if(addPat.equals("Y")){
-                            int pId;
-                        System.out.println("Enter the patron's Id");
-                        pId = scanner.nextInt();
-                        ArrayList <Patron> perList = l.getPatronList();
-                        boolean pValid = false;
-                        for(Patron per: perList){
-                            if(pId == per.getPatronID()){
-                            pValid = true;
-                            boolean validCopies = false;
-                            int amountCopies = 0;
-                            while(validCopies == false){
-
-                                System.out.println("Enter the amount of copies you wish to borrow");
-                                amountCopies = scanner.nextInt();
-
-                                if (amountCopies > (p.getCopyNum()-p.getBorrowAmount())){
-                                    System.out.println("Cannot borrow this amount of copies");
-                                    
-                                }
-                                else{
-                                    validCopies = true;
-                                }
+                        String addPat = "";
+                        //Have the user enter whether the patron is in the database or not
+                        while(validInput == false){
+                            System.out.println("Is the Patron already in the System?(Y,N)");
+                            addPat = scanner.next();
+                            if(addPat.equals("Y") || addPat.equals("N")){
+                                validInput = true;
                             }
-                            for(int i =1;i<= amountCopies; i++){
-                            p.Borrow(per);
+                    
+                            else{
+                                System.out.println("Invalid Input");
                             }
                             }
-                        }
-
-                        if (pValid == false){
-                            System.out.println("Patron does not exist");
-                        }
-                        }
-
-                        else if(addPat.equals("N")){
-                            int pId;
-                            String name;
-                            String address;
-                            String phoneNum;
-                            String pType;
-
-                            System.out.println("Enter the patron Id");
-                            
+    
+                            validInput = false;
+                            //Enter if the patron is already in the system
+                            if(addPat.equals("Y")){
+                                int pId;
+                            System.out.println("Enter the patron's Id");
                             pId = scanner.nextInt();
-
-                            System.out.println("Enter the patron's name");
-                            name = scanner.next();
-
-                            System.out.println("Enter the patron's address");
-                            address = scanner.next();
-
-                            System.out.println("Enter the phone number");
-                            phoneNum = scanner.next();
-
-                            System.out.println("Enter the type of patron(S,E)");
-                            
-                            pType = scanner.next();
-
-                            if(pType.equals("S")){
-                                int studentID;
-                                String school;
-                                int grade;
-                                System.out.println("Enter the patron's Student ID");
-                                studentID = scanner.nextInt();
-
-                                System.out.println("Enter the patron's school");
-                                school = scanner.next();
-
-                                System.out.println("Enter the patron's grade");
-                                grade = scanner.nextInt();
-
-                                Student s = new Student (pId,name,address,phoneNum,studentID, school, grade);
-                                l.addPatron(s);
-                                boolean validCopies = false;
+                            ArrayList <Patron> perList = l.getPatronList();
+                            boolean pValid = false;
+                            for(Patron per: perList){
                                 int amountCopies = 0;
+                                if(pId == per.getPatronID()){
+                                pValid = true;
+                                boolean validCopies = false;
+    
+                                //Enter the amount of copies to be borrowed
                                 while(validCopies == false){
     
                                     System.out.println("Enter the amount of copies you wish to borrow");
@@ -1409,7 +1649,130 @@ public static void removeItem(Library l){
                                     }
                                 }
                                 for(int i =1;i<= amountCopies; i++){
+                                p.Borrow(per);
+                                }
+                            }
+    
+                            if (pValid == false){
+                                System.out.println("Patron does not exist");
+                            }
+                            }
+                        }
+                        else if(addPat.equals("N")){
+                                int pId;
+                                String name;
+                                String address;
+                                String phoneNum;
+                                String pType ="";
+                                int amountCopies = 0;
+                                
+    
+                                System.out.println("Enter the patron Id");
+                                
+                                pId = scanner.nextInt();
+    
+                                System.out.println("Enter the patron's name");
+                                name = scanner.next();
+    
+                                System.out.println("Enter the patron's address");
+                                address = scanner.next();
+    
+                                System.out.println("Enter the phone number");
+                                phoneNum = scanner.next();
+    
+                                //Enter the type of patron
+                                while(validInput == false){
+                                System.out.println("Enter the type of patron(S,E)");
+                                
+                                pType = scanner.next();
+                                if(pType.equals("S") || pType.equals("E")){
+                                    validInput = true;
+                                }
+                        
+                                else{
+                                    System.out.println("Invalid Input");
+                                }
+                                }
+        
+                                validInput = false;
+                                
+    
+                                //Enter if the patron is a student
+                                if(pType.equals("S")){
+                                    int studentID;
+                                    String school;
+                                    int grade;
+                                    System.out.println("Enter the patron's Student ID");
+                                    studentID = scanner.nextInt();
+    
+                                    System.out.println("Enter the patron's school");
+                                    school = scanner.next();
+    
+                                    System.out.println("Enter the patron's grade");
+                                    grade = scanner.nextInt();
+    
+                                    //Create a student object with the inputed data
+                                    Student s = new Student(pId,name,address,phoneNum,studentID, school, grade);
+                                    l.addPatron(s);
+                                    boolean validCopies = false;
+    
+                                    //Enter the amount of copies to be borrowed
+                                    while(validCopies == false){
+    
+                                    System.out.println("Enter the amount of copies you wish to borrow");
+                                    amountCopies = scanner.nextInt();
+    
+                                    if (amountCopies > (p.getCopyNum()-p.getBorrowAmount())){
+                                        System.out.println("Cannot borrow this amount of copies");
+                                        
+                                    }
+                                    else{
+                                        validCopies = true;
+                                    }
+                                }
+    
+                                //Borrow the periodicals
+                                for(int i =1;i<= amountCopies; i++){
                                 p.Borrow(s);
+                                }  
+                                }
+    
+                                //Enter if the patron is a Employee
+                                else if(pType.equals("E")){
+                                     int empID;
+                                     String position;
+    
+                                     System.out.println("Enter the employee ID");
+                                     empID = scanner.nextInt();
+    
+                                     System.out.println("Enter the position");
+    
+                                     position = scanner.next();
+    
+                                     //Create an employee
+                                     Employee e = new Employee(pId,name,address,phoneNum,empID, position);
+                                     l.addPatron(e);
+                                     
+                                     boolean validCopies = false;
+    
+                                    //Enter the amount of copies to be borrowed
+                                while(validCopies == false){
+    
+                                    System.out.println("Enter the amount of copies you wish to borrow");
+                                    amountCopies = scanner.nextInt();
+    
+                                    if (amountCopies > (p.getCopyNum()-p.getBorrowAmount())){
+                                        System.out.println("Cannot borrow this amount of copies");
+                                        
+                                    }
+                                    else{
+                                        validCopies = true;
+                                    }
+                                }
+    
+                                //Borrow the periodicals
+                                for(int i =1;i<= amountCopies; i++){
+                                p.Borrow(e);
                                 }
                                 
                             }
@@ -1427,7 +1790,7 @@ public static void removeItem(Library l){
                                  Employee e = new Employee(pId,name,address,phoneNum,empID, position);
                                  l.addPatron(e);
                                  boolean validCopies = false;
-                                int amountCopies = 0;
+                               
                                 while(validCopies == false){
     
                                     System.out.println("Enter the amount of copies you wish to borrow");
@@ -1445,18 +1808,6 @@ public static void removeItem(Library l){
                                 p.Borrow(e);
                                 }
                             }
-
-                            else{
-                                System.out.println("Invalid Input");
-                            }
-                            
-
-
-                        }
-
-                        else{
-                            System.out.println("Invalid input");
-                        }
                     }
 
                 }
@@ -1466,138 +1817,237 @@ public static void removeItem(Library l){
                 }
                 }
             }
+        }
             
             else{
                 System.out.println("Invalid input");
             }
         }
 
+        //Enter if sereaching by the Author
         if(type.equals("A")){
-            String pubType;
             String authorName;
             System.out.println("Enter the name of the Author");
             authorName = scanner.next();
             ArrayList <LibaryItem> aBookList = new ArrayList<LibaryItem>();
 
+            //Search the database for the author
             for(Author a: l.getAuthorList()){
+
+                //Enter if found the author
                 if(a.getName().equals(authorName)){
                     aBookList = a.getWrittenList();
                 }
             }
 
+            //Enter if the author has written any items
             if(aBookList.size()>0){
+
+                //Display all the authors items
              for(LibaryItem p: aBookList){
-                System.out.println(p.getTitle() + " " + p.getAuthor() + " " + p.getIsbn() + " " + " Total copies: " + p.getCopyNum() + "Total copies currently avaible: " + (p.getCopyNum() - p.getBorrowAmount()));
+                System.out.println(p.getTitle() + " " + p.getAuthor().getName() + " " + p.getIsbn() + " " + " Total copies: " + p.getCopyNum() + " Total copies currently available: " + (p.getCopyNum() - p.getBorrowAmount()));
              }
 
-             String choice;
-             System.out.println("Do you wishe to borrow a publication from this list?(Y,N)");
+             String choice= "";
+
+             //Have the user enter if they wish to borrow an item
+             while(validInput == false){
+             System.out.println("Do you wish to borrow a publication from this list?(Y,N)");
              choice = scanner.next();
 
+            if(choice.equals("Y") || choice.equals("N"))
+            {
+                validInput = true;
+            }
+
+            else{
+                System.out.println("Invalid Input");
+            }
+            
+             }
+             validInput = false;
+
+             //Enter if the user input Y
              if (choice.equals("Y")){
-                System.out.println("Enter the publication title");
                 boolean  valid= false;
+
+                System.out.println("Enter the publication title");
                 String title = scanner.next();
+
+                //Search the database for the item
                 for(LibaryItem p: aBookList){
+
+                    //Enter if found the item
                     if(p.getTitle().equals(title)){
                         valid = true;
-                        String addPat;
-                        System.out.println("Is the Patron already in the System?(Y,N)");
-                        addPat = scanner.next();
-                        if(addPat.equals("Y")){
-                            int pId;
-                        System.out.println("Enter the patron's Id");
-                        pId = scanner.nextInt();
-                        ArrayList <Patron> perList = l.getPatronList();
-                        boolean pValid = false;
-                        for(Patron per: perList){
-                            if(pId == per.getPatronID()){
-                            pValid = true;
-                            int amountCopies = 0;
-                            boolean validCopies = false;
-                            while (validCopies == false) {
-                                
-                            System.out.println("Enter the amount of copies you wish to borrow");
-                            amountCopies = scanner.nextInt();
-
-                                if (amountCopies > (p.getCopyNum()-p.getBorrowAmount())){
-                                    System.out.println("Cannot borrow this amount of copies");
-                                    
-                                }
-                                else{
-                                    validCopies = true;
-                                }
-                            
-                            for(int i =1;i<= amountCopies; i++){
-                            p.Borrow(per);
-                            }  
+                        String addPat = "";
+                        //Have the user enter whether the patron is in the database or not
+                        while(validInput == false){
+                            System.out.println("Is the Patron already in the System?(Y,N)");
+                            addPat = scanner.next();
+                            if(addPat.equals("Y") || addPat.equals("N")){
+                                validInput = true;
                             }
-                        }
-                    }
-
-                        if (pValid == false){
-                            System.out.println("Patron does not exist");
-                        }
-                        }
-
-                        else if(addPat.equals("N")){
+                    
+                            else{
+                                System.out.println("Invalid Input");
+                            }
+                            }
+    
+                            validInput = false;
+                            //Enter if the patron is already in the system
+                            if(addPat.equals("Y")){
                             int pId;
-                            String name;
-                            String address;
-                            String phoneNum;
-                            String pType;
-
-                            System.out.println("Enter the patron Id");
-                            
+                            System.out.println("Enter the patron's Id");
                             pId = scanner.nextInt();
-
-                            System.out.println("Enter the patron's name");
-                            name = scanner.next();
-
-                            System.out.println("Enter the patron's address");
-                            address = scanner.next();
-
-                            System.out.println("Enter the phone number");
-                            phoneNum = scanner.next();
-
-                            System.out.println("Enter the type of patron(S,E)");
-                            
-                            pType = scanner.next();
-
-                            if(pType.equals("S")){
-                                int studentID;
-                                String school;
-                                int grade;
-                                System.out.println("Enter the patron's Student ID");
-                                studentID = scanner.nextInt();
-
-                                System.out.println("Enter the patron's school");
-                                school = scanner.next();
-
-                                System.out.println("Enter the patron's grade");
-                                grade = scanner.nextInt();
-
-                                Student s = new Student (pId,name,address,phoneNum,studentID, school, grade);
-                                l.addPatron(s);
+                            ArrayList <Patron> perList = l.getPatronList();
+                            boolean pValid = false;
+                            for(Patron per: perList){
                                 int amountCopies = 0;
-                            boolean validCopies = false;
-                            while (validCopies == false) {
-                                
-                            System.out.println("Enter the amount of copies you wish to borrow");
-                            amountCopies = scanner.nextInt();
-
-                                if (amountCopies > (p.getCopyNum()-p.getBorrowAmount())){
-                                    System.out.println("Cannot borrow this amount of copies");
-                                    
+                                if(pId == per.getPatronID()){
+                                pValid = true;
+                                boolean validCopies = false;
+    
+                                //Enter the amount of copies to be borrowed
+                                while(validCopies == false){
+    
+                                    System.out.println("Enter the amount of copies you wish to borrow");
+                                    amountCopies = scanner.nextInt();
+    
+                                    if (amountCopies > (p.getCopyNum()-p.getBorrowAmount())){
+                                        System.out.println("Cannot borrow this amount of copies");
+                                        
+                                    }
+                                    else{
+                                        validCopies = true;
+                                    }
                                 }
-                                else{
-                                    validCopies = true;
+                                for(int i =1;i<= amountCopies; i++){
+                                p.Borrow(per);
                                 }
-                            
-                            for(int i =1;i<= amountCopies; i++){
-                            p.Borrow(s);
-                            }  
                             }
+    
+                            if (pValid == false){
+                                System.out.println("Patron does not exist");
+                            }
+                            }
+                        }
+                        else if(addPat.equals("N")){
+                                int pId;
+                                String name;
+                                String address;
+                                String phoneNum;
+                                String pType ="";
+                                int amountCopies = 0;
+                                
+    
+                                System.out.println("Enter the patron Id");
+                                
+                                pId = scanner.nextInt();
+    
+                                System.out.println("Enter the patron's name");
+                                name = scanner.next();
+    
+                                System.out.println("Enter the patron's address");
+                                address = scanner.next();
+    
+                                System.out.println("Enter the phone number");
+                                phoneNum = scanner.next();
+    
+                                //Enter the type of patron
+                                while(validInput == false){
+                                System.out.println("Enter the type of patron(S,E)");
+                                
+                                pType = scanner.next();
+                                if(pType.equals("S") || pType.equals("E")){
+                                    validInput = true;
+                                }
+                        
+                                else{
+                                    System.out.println("Invalid Input");
+                                }
+                                }
+        
+                                validInput = false;
+                                
+    
+                                //Enter if the patron is a student
+                                if(pType.equals("S")){
+                                    int studentID;
+                                    String school;
+                                    int grade;
+                                    System.out.println("Enter the patron's Student ID");
+                                    studentID = scanner.nextInt();
+    
+                                    System.out.println("Enter the patron's school");
+                                    school = scanner.next();
+    
+                                    System.out.println("Enter the patron's grade");
+                                    grade = scanner.nextInt();
+    
+                                    //Create a student object with the inputed data
+                                    Student s = new Student(pId,name,address,phoneNum,studentID, school, grade);
+                                    l.addPatron(s);
+                                    boolean validCopies = false;
+    
+                                    //Enter the amount of copies to be borrowed
+                                    while(validCopies == false){
+    
+                                    System.out.println("Enter the amount of copies you wish to borrow");
+                                    amountCopies = scanner.nextInt();
+    
+                                    if (amountCopies > (p.getCopyNum()-p.getBorrowAmount())){
+                                        System.out.println("Cannot borrow this amount of copies");
+                                        
+                                    }
+                                    else{
+                                        validCopies = true;
+                                    }
+                                }
+    
+                                //Borrow the periodicals
+                                for(int i =1;i<= amountCopies; i++){
+                                p.Borrow(s);
+                                }  
+                                }
+    
+                                //Enter if the patron is a Employee
+                                else if(pType.equals("E")){
+                                     int empID;
+                                     String position;
+    
+                                     System.out.println("Enter the employee ID");
+                                     empID = scanner.nextInt();
+    
+                                     System.out.println("Enter the position");
+    
+                                     position = scanner.next();
+    
+                                     //Create an employee
+                                     Employee e = new Employee(pId,name,address,phoneNum,empID, position);
+                                     l.addPatron(e);
+                                     
+                                     boolean validCopies = false;
+    
+                                    //Enter the amount of copies to be borrowed
+                                while(validCopies == false){
+    
+                                    System.out.println("Enter the amount of copies you wish to borrow");
+                                    amountCopies = scanner.nextInt();
+    
+                                    if (amountCopies > (p.getCopyNum()-p.getBorrowAmount())){
+                                        System.out.println("Cannot borrow this amount of copies");
+                                        
+                                    }
+                                    else{
+                                        validCopies = true;
+                                    }
+                                }
+    
+                                //Borrow the periodicals
+                                for(int i =1;i<= amountCopies; i++){
+                                p.Borrow(e);
+                                }
                                 
                             }
 
@@ -1613,41 +2063,36 @@ public static void removeItem(Library l){
                                  position = scanner.next();
                                  Employee e = new Employee(pId,name,address,phoneNum,empID, position);
                                  l.addPatron(e);
-                                 int amountCopies = 0;
                                  boolean validCopies = false;
-                                 while (validCopies == false) {
-                                     
-                                 System.out.println("Enter the amount of copies you wish to borrow");
-                                 amountCopies = scanner.nextInt();
-     
-                                     if (amountCopies > (p.getCopyNum()-p.getBorrowAmount())){
-                                         System.out.println("Cannot borrow this amount of copies");
-                                         
-                                     }
-                                     else{
-                                         validCopies = true;
-                                     }
-                                 
-                                 for(int i =1;i<= amountCopies; i++){
-                                 p.Borrow(e);
-                                 }  
+                               
+                                while(validCopies == false){
+    
+                                    System.out.println("Enter the amount of copies you wish to borrow");
+                                    amountCopies = scanner.nextInt();
+    
+                                    if (amountCopies > (p.getCopyNum()-p.getBorrowAmount())){
+                                        System.out.println("Cannot borrow this amount of copies");
+                                        
+                                    }
+                                    else{
+                                        validCopies = true;
+                                    }
+                                }
+                                for(int i =1;i<= amountCopies; i++){
+                                p.Borrow(e);
+                                }  
                             }
                         }
 
-                            else{
-                                System.out.println("Invalid Input");
-                            }
+                            
                             
 
 
                         }
 
-                        else{
-                            System.out.println("Invalid input");
-                        }
                     }
 
-                }
+                
 
                 if(valid == false){
                     System.out.println("Publication is not in data base is not in data base");

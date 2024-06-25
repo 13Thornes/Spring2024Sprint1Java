@@ -60,8 +60,8 @@ public class Patron {
         return borrowedList;
     }
 
-    public void setBorrowedList(LibaryItem item) {
-        borrowedList.add(item);
+    public void setBorrowedList(ArrayList<LibaryItem> item) {
+        borrowedList = item;
     }
 
     // Add/remove book from WrittenList
