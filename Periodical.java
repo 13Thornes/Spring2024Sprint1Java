@@ -1,6 +1,8 @@
 public class Periodical extends LibaryItem {
+
     private String type;
     private String issueNum;
+
 
     public Periodical(int itemID, String title, Author author, String isbn, String publisher, int copyNum,String type, String issueNum){
         super(itemID, title, author, isbn, publisher, copyNum);
@@ -8,7 +10,6 @@ public class Periodical extends LibaryItem {
         this.issueNum = issueNum;
     }
 
-    public Periodical(){}
 
     public String getType() {
         return this.type;

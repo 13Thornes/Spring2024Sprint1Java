@@ -13,9 +13,7 @@ public class Patron {
         this.address = address;
         this.phoneNum = phoneNum;
     }
-    public Patron(){
 
-    }
     public Patron(int patronID, String name, String address, String phoneNum, LibaryItem item) {
         this.patronID = patronID;
         this.name = name;
@@ -60,6 +58,7 @@ public class Patron {
         return borrowedList;
     }
 
+
     public void setBorrowedList(ArrayList<LibaryItem> item) {
         borrowedList = item;
     }
@@ -76,13 +75,14 @@ public class Patron {
     public void removeBorrowedItem(LibaryItem i) {
         if (this.borrowedList.contains(i)) {
             borrowedList.remove(i);
+
             System.out.println("Item removed from list");
     }
 
     }
 
 
- 
+
      public String toString() {
         return "Patron " + patronID + "[Name= " + this.name + ", Address= " + this.address + ", Phone No.= " + phoneNum + ", Items Borrowed: " + this.borrowedList.toString();
     

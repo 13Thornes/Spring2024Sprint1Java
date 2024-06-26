@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+
 import java.util.Scanner;
 
 public class LibaryItem {
@@ -9,7 +10,7 @@ public class LibaryItem {
     private String publisher;
     private int copyNum;
     private int borrowAmount = 0;
-    
+
 
 
     public LibaryItem(int itemID, String title, Author author, String isbn, String publisher, int copyNum){
@@ -20,9 +21,8 @@ public class LibaryItem {
         this.publisher = publisher;
         this.copyNum = copyNum;
     }
-    public LibaryItem(){
 
-    }
+
     // Getters and Setters
 
     public int getItemID() {
@@ -64,6 +64,7 @@ public class LibaryItem {
         this.publisher = pub;
     }
 
+
     public int getCopyNum() {
         return copyNum;
     }
@@ -71,6 +72,7 @@ public class LibaryItem {
     public void setCopyNum(int copyNum) {
         this.copyNum = copyNum;
     }
+
 
     public int getBorrowAmount() {
         return borrowAmount;
@@ -80,10 +82,12 @@ public class LibaryItem {
 
     public String toString() {
 
+
         return ("Library Item[ID= " + itemID + ", Title= " + title + ", Author= " + author.getName() + ", ISBN= " + isbn + " Publisher= " + publisher + ", Copies= " + copyNum +"]");
-    }
+
 
     // Borrow and Return book
+
 
     public void Borrow(Patron p) {
         

@@ -1,3 +1,4 @@
+
 /**
  * @author Samantha Throne
  * @version 1.00
@@ -25,11 +26,18 @@ public class Book extends LibaryItem {
      * @param type accepts the type and set it to the Book Object
      * @param genre accepts the genre and set it to the Book object
      */
+
+public class Book extends LibaryItem {
+    public String type;
+    public String genre;
+
+
     public Book (int itemID, String title, Author author, String isbn, String publisher, int copyNum,String type, String genre){
         super(itemID, title, author, isbn, publisher, copyNum);
         this.type = type;
         this.genre = genre;
     }
+
     /**
      * Creates a null Book object
      */
@@ -39,7 +47,7 @@ public class Book extends LibaryItem {
 
     /**
      * 
-     * @return retunrs the type of the Book object
+     * @return return the type of the Book object
      */
     public String getType() {
         return type;
@@ -49,22 +57,32 @@ public class Book extends LibaryItem {
      * 
      * @param type accepts type and set it to the Book Object
      */
+
+
+    public String getType() {
+        return this.type;
+    }
+
     public void setType(String type) {
         this.type = type;
     }
+
 
     /**
      * 
      * @return returns the genre of the Book object
      */
+
     public String getGenre() {
         return this.genre;
     }
+
 
     /**
      * 
      * @param genre acceptes the genre and set it to the Book object
      */
+
     public void setGenre(String genre) {
         this.genre = genre;
     }
