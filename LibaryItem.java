@@ -1,13 +1,16 @@
 import java.util.ArrayList;
 
+import java.util.Scanner;
+
 public class LibaryItem {
-    public int itemID;
-    public String title;
-    public Author author;
-    public String isbn;
-    public String publisher;
-    public int copyNum;
-    public ArrayList<LibaryItem> itemList = new ArrayList<LibaryItem>();
+    private int itemID;
+    private String title;
+    private Author author;
+    private String isbn;
+    private String publisher;
+    private int copyNum;
+    private int borrowAmount = 0;
+
 
 
     public LibaryItem(int itemID, String title, Author author, String isbn, String publisher, int copyNum){
@@ -18,6 +21,7 @@ public class LibaryItem {
         this.publisher = publisher;
         this.copyNum = copyNum;
     }
+
 
     // Getters and Setters
 
@@ -60,6 +64,7 @@ public class LibaryItem {
         this.publisher = pub;
     }
 
+
     public int getCopyNum() {
         return copyNum;
     }
@@ -68,21 +73,43 @@ public class LibaryItem {
         this.copyNum = copyNum;
     }
 
+
+    public int getBorrowAmount() {
+        return borrowAmount;
+    }
+
     // toString()
 
     public String toString() {
 
-        return ("Library Item[ID= " + itemID + ", Title= " + title + ", Author= " + author.name + ", ISBN= " + isbn + " Publisher= " + publisher + ", Copies= " + copyNum +"]");
-    }
+
+        return ("Library Item[ID= " + itemID + ", Title= " + title + ", Author= " + author.getName() + ", ISBN= " + isbn + " Publisher= " + publisher + ", Copies= " + copyNum +"]");
+
 
     // Borrow and Return book
 
-    public void Borrow() {
-        this.copyNum = copyNum - 1;
+
+    public void Borrow(Patron p) {
+        
+        if(borrowAmount == copyNum){
+            System.out.println(title + " is currently unaviable");
+        }
+
+        else{
+
+            p.addBorrowedItem(this);
+            borrowAmount++;
+        }
     }
 
     public void Return() {
-        this.copyNum = copyNum + 1;
+        
+        if(borrowAmount == 0){
+            System.out.println(" There are currently no copies borrowed");
+        }
+        else{
+            borrowAmount--;
+        }
     }
     
 }

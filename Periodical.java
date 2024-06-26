@@ -1,12 +1,15 @@
 public class Periodical extends LibaryItem {
-    public String type;
-    public String issueNum;
+
+    private String type;
+    private String issueNum;
+
 
     public Periodical(int itemID, String title, Author author, String isbn, String publisher, int copyNum,String type, String issueNum){
         super(itemID, title, author, isbn, publisher, copyNum);
         this.type = type;
         this.issueNum = issueNum;
     }
+
 
     public String getType() {
         return this.type;
