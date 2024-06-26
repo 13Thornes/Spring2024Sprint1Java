@@ -54,30 +54,65 @@ public class Student extends Patron{
         borrowList.addAll(itemList);
     }
 
+    /**
+     * 
+     * @return returns the studentID of the Student object
+     */
     public int getStudentID() {
         return studentID;
     }
 
+
+
+    /**
+     * 
+     * @param studentID accepts studentID and set it to the Student object
+     */
     public void setStudentID(int studentID) {
         this.studentID = studentID;
     }
 
+
+    /**
+     * 
+     * @return returns the school of the Student object
+     */
     public String getSchool() {
         return school;
     }
 
+
+
+    /**
+     * 
+     * @param school accepts school and set it to the Student object
+     */
     public void setSchool(String school) {
         this.school = school;
     }
 
+
+    /**
+     * 
+     * @return returns the grade of the Student object
+     */
     public int getGrade() {
         return grade;
     }
 
+
+
+    /**
+     * 
+     * @param grade accepts grade and set it to the Student object
+     */
     public void setGrade(int grade) {
         this.grade = grade;
     }
 
+    /**
+     * @return returns all the data of the Student object as a string
+     */
     @Override
     public String toString() {
         return (super.toString() + " Student[StudentID= " + studentID + ", School= " + school + " , Grade= " + grade + "]") ;
