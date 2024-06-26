@@ -3,11 +3,19 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-
+/**
+ * @author Luke Peddle
+ * @version 1.00
+ */
 public class Demo {
     //Method to add an library item to the database
-    public static void addBook(Library l)
-{ Scanner scanner = new Scanner(System.in);
+    //Method to remove item from data base
+/**
+ * Method to add a LibaryItem, Patron, or Author object
+ * @param l accepts Library object to obtian lists
+ */
+    public static void addBook(Library l){ 
+    Scanner scanner = new Scanner(System.in);
     String itemType = "";
     String choice = "";
     String itemChoice ="";
@@ -42,7 +50,7 @@ public class Demo {
     else{
         System.out.println("Invalid input");
     }
-}
+    }
 
     validInput = false;
     if(itemType.equals("B") ){
@@ -65,6 +73,7 @@ public class Demo {
         if(choice.equals("N")){
             String name;
             String DOB;
+            System.out.println("Enter");
 
             System.out.println("Please enter the Author's full name.");
             name = scanner.next();
@@ -83,7 +92,7 @@ public class Demo {
             String ISBN;
             String publisher;
             int copyNum;
-            String type;
+            String type = "";
             String genre;
 
             System.out.println("Enter the Item Id");
@@ -106,14 +115,9 @@ public class Demo {
 
             copyNum = scanner.nextInt();
 
-            System.out.println("Enter the type of book(P,E,A)");
-
-            type = scanner.next();
             while(validInput == false){
                 System.out.println("Enter the type of book(P,E,A)");
-    
                 type = scanner.next();
-                System.out.println(type);
     
                 if(type.equals("P") || type.equals("E")  || type.equals("A")){
                     validInput = true;
@@ -127,6 +131,8 @@ public class Demo {
                 }
             }
             validInput = false;
+
+            System.out.println("Enter the genre");
             genre = scanner.next();
 
             //Create the object andd add it to the system
@@ -143,6 +149,7 @@ public class Demo {
 
             //Have the user enter the author's name
             while(validInput == false ){
+                System.out.println("Enter");
             System.out.println("Please enter the authors full name");
             authorName = scanner.next();
             
@@ -155,7 +162,6 @@ public class Demo {
                 //If found the author, save it 
                 if (a.getName().equals(authorName))
                 {
-                    System.out.println("Enter");
                     valid = true;
 
                     a1 = a;
@@ -253,7 +259,7 @@ public class Demo {
         }
         }
         validInput = false;
-    }
+    
 
 
         //Enter if the author is not in the system
@@ -332,13 +338,6 @@ public class Demo {
             l.addPeriodical(p);
             }
 
-            
-
-    }
-            
-
-        
-
         //Enter if the author is already in the System
         else if(choice.equals("Y")){
             boolean valid = false;
@@ -384,7 +383,7 @@ public class Demo {
             String ISBN;
             String publisher;
             int copyNum;
-            String type;
+            String type = "";
             String issueNum;
 
             System.out.println("Enter the Item Id");
@@ -407,11 +406,9 @@ public class Demo {
 
             copyNum = scanner.nextInt();
 
-            System.out.println("Enter the type of Perodical(P,E)");
-
-            type = scanner.next();
+           
             while(validInput == false){
-                System.out.println("Enter the type of book(P,E)");
+                System.out.println("Enter the type of periodical(P,E)");
     
                 type = scanner.next();
                 System.out.println(type);
@@ -437,6 +434,8 @@ public class Demo {
 
 
             }
+        }
+    }
 
             //Enter if a patron is being added
             if(itemChoice.equals("P")){
@@ -518,6 +517,11 @@ public class Demo {
        
 
 //Method to remove item from data base
+/**
+ * Method to remove a LibaryItem, Patron, or Author object
+ * @param l accepts Library object to obtian lists
+ */
+//Method to remove item from data base
 public static void removeItem(Library l){
     boolean valid = false;
     boolean validInput = false;
@@ -541,7 +545,7 @@ public static void removeItem(Library l){
     }
     validInput = false;
 
-    if(choice.equals("LP")){ 
+    if(choice.equals("LB")){ 
     //Have the user enter they type of item
     while (validInput == false){
     System.out.println("Enter the type of Item(B,P)");
@@ -561,7 +565,7 @@ public static void removeItem(Library l){
 
     //Search throught the books with the title
 
-    while(validInput == false){
+    
     System.out.println("Enter the Name of the Book you want to remove");
         
     itemName = scanner.next();
@@ -578,18 +582,15 @@ public static void removeItem(Library l){
         }
       }
 
+      
+
       if(valid == false){
         System.out.println("Book does not exist");
       }
-
       else{
-        validInput = true;
-      }
-    }
-    validInput = false;
-
       //remove the book from the system
         l.removeBook(removeBook);
+      }
     
     }
     //Enter if the item is a periodical
@@ -597,7 +598,7 @@ public static void removeItem(Library l){
         Periodical removeP = new Periodical();
 
         //Search the list for the periodical
-        while(validInput == false){
+        
       System.out.println("Enter the Name of the Periodical you want to remove");
       itemName = scanner.next();
         
@@ -616,14 +617,11 @@ public static void removeItem(Library l){
         if(valid == false){
           System.out.println("Periodical does not exist");
         }
+        
         else{
-            validInput = true;
-          }
-
-    }
-
         //Remove the periodical from the list
         l.removePeriodical(removeP);
+    }
         
     }
     }
@@ -633,7 +631,7 @@ public static void removeItem(Library l){
         Patron removePar = new Patron();
         validInput = false;
         //Enter the id of the patron to be deleted
-        while (validInput == false){
+       
             System.out.println("Enter the Patron's Id");
             int pId = scanner.nextInt();
 
@@ -653,18 +651,19 @@ public static void removeItem(Library l){
 
             else{
                 validInput = true;
+                ArrayList<LibaryItem> lbList = removePar.getBorrowedList();
+
+                //Return the patrons books
+                for(LibaryItem i: lbList){
+                    i.Return();
+                }
+
+                //Remove the patron from the system
+                l.removePatron(removePar);
             }
-        }
+        
 
-        ArrayList<LibaryItem> lbList = removePar.getBorrowedList();
-
-        //Return the patrons books
-        for(LibaryItem i: lbList){
-            i.Return();
-        }
-
-        //Remove the patron from the system
-        l.removePatron(removePar);
+        
 
     }
     //Enter if an author is being removed
@@ -685,12 +684,21 @@ public static void removeItem(Library l){
                 }
             }
 
-           
+            if (valid == false){
+                System.out.println("Invalid Author");
+            }
+
+            else{
         //Remove the author from the system
         l.removeAuthor(removeA);
+        }
     }
     }
 
+/**
+ * Method to edit a LibaryItem, Patron, or Author object
+ * @param l accepts Library object to obtian lists
+ */
     //Method to edit item
     public static void editItem(Library l){
         boolean valid = false;
@@ -868,8 +876,11 @@ public static void removeItem(Library l){
                     }
                 }
         }
-    
-        //Method to borrow items
+    /**
+ * Method to search through LibaryItem Objects to borrow a LibaryItem object
+ * @param l accepts Library object to obtian lists
+ */
+    //Method to borrow items
     public static void borrowItem(Library l){
         Scanner scanner = new Scanner(System.in);
         String type = "";
@@ -1120,9 +1131,10 @@ public static void removeItem(Library l){
                 //Enter if could not find book
                 
                 }
-                if (valid == false){
-                    System.out.println("Book is not in data base");
-                }
+               
+            }
+            if (valid == false){
+                System.out.println("Book is not in data base");
             }
         }
             //Enter if the item is a periodical
@@ -1338,6 +1350,9 @@ public static void removeItem(Library l){
                 if (valid == false){
                     System.out.println("Periodical is not in data base");
                 }
+                }
+                if (valid == false){
+                    System.out.println("Periodical is not in data base");
                 }
             }
         }
@@ -1571,9 +1586,10 @@ public static void removeItem(Library l){
 
                 
                 }
-                if (valid == false){
-                    System.out.println("Book is not in data base");
-                }
+                
+            }
+            if (valid == false){
+                System.out.println("Book is not in data base");
             }
         }
             //Enter if the item is a periodical
@@ -1812,10 +1828,12 @@ public static void removeItem(Library l){
 
                 }
 
-                if (valid == false){
-                    System.out.println("Periodical is not in data base");
+               
                 }
-                }
+                
+            }
+            if (valid == false){
+                System.out.println("Periodical is not in data base");
             }
         }
             
@@ -2105,7 +2123,11 @@ public static void removeItem(Library l){
             }
         }
     }
-    //Method to borrow library items
+    /**
+ * Method to return a LibaryItem Object
+ * @param l accepts Library object to obtian lists
+ */
+    //Method to return library items
     public static void returnLibraryItem(Library l){
         Scanner scanner = new Scanner(System.in);
         int parId;
@@ -2184,15 +2206,28 @@ public static void removeItem(Library l){
 
 
     public static void main(String[] args) {
-        Author a1 = new Author("Cindy", "12-01-1925");
-        Book b1 = new Book(123, "Hello", a1, "A2H357", "Publish", 2, "EBook", "Fiction");
+        Author a1 = new Author("CindyLoo", "1925/12/01");
+        Author a2 = new Author("BobJohnson", "1999/08/13");
+        Author a3 = new Author("JohnIger", "1987/11/13");
+        Book b1 = new Book(123, "Hello", a1, "A2H357", "Publish", 2, "E", "Fiction");
         Periodical p1 = new Periodical(456, "Bye", a1, "1h4s9o", "Company", 3, "Magazine", "45");
-        Patron pa1 = new Patron(234, "Katherine Wall", "123 Main st", "1234567890");
+        Patron pa1 = new Student(234, "KatherineWright", "123MainSt", "1234567890", 675, "StEdwards", 11 );
+        Patron pa2 = new Employee(234, "DavePenny", "56AlexsLane", "0987654321", 3786, "Mangement" );
+        Book b2 = new Book(123, "Hello", a1, "A2H357", "Publish", 2, "E", "Fiction");
+        Periodical p2 = new Periodical(96," Hi", a3, "89NMK9", "Geographic", 2, "P", "76");
 
         a1.addWrittenItem(b1);
         a1.addWrittenItem(p1);
+
+        a2.addWrittenItem(b2);
+        a3.addWrittenItem(p2);
         b1.Borrow(pa1);
         Library l = new Library(b1, p1, pa1, a1);
+        l.addAuthor(a2);
+        l.addAuthor(a3);
+        l.addBook(b2);
+        l.addPeriodical(p2);
+        l.addPatron(pa2);
 
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -2211,27 +2246,27 @@ public static void removeItem(Library l){
                 case 1:
                     System.out.println("Adding a new library item...");
                     addBook(l);
-                    System.out.println(l.toString());
+                   // System.out.println(l.toString());
                     break;
                 case 2:
                     System.out.println("Editing an existing library item...");
                     editItem(l);
-                    System.out.println(l.toString());
+                   // System.out.println(l.toString());
                     break;
                 case 3:
                     System.out.println("Deleting a library item...");
                     removeItem(l);
-                    System.out.println(l.toString()); 
+                   // System.out.println(l.toString()); 
                     break;
                 case 4:
                     System.out.println("Borrowing a library item...");
                     borrowItem(l);
-                    System.out.println(l);
+                   // System.out.println(l);
                     break;
                 case 5:
                     System.out.println("Returning a library item...");
                     returnLibraryItem(l);
-                    System.out.println(l);
+                   // System.out.println(l);
                     break;
                 case 6:
                     System.out.println("Exiting the system. Goodbye!");

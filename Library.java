@@ -2,10 +2,10 @@ import java.util.ArrayList;
 
 // Initialize Library lists
 public class Library {
- ArrayList<Book> bookList = new ArrayList<Book>();
- ArrayList<Periodical> periodicalList = new ArrayList<Periodical>();
- ArrayList<Patron> patronList = new ArrayList<Patron>();
- ArrayList<Author> authorList = new ArrayList<Author>();
+ private ArrayList<Book> bookList = new ArrayList<Book>();
+ private ArrayList<Periodical> periodicalList = new ArrayList<Periodical>();
+ private ArrayList<Patron> patronList = new ArrayList<Patron>();
+ private ArrayList<Author> authorList = new ArrayList<Author>();
 
  // Create Constructors
  public Library() {

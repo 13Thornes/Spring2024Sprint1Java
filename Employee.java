@@ -1,5 +1,8 @@
 import java.util.ArrayList;
-
+/**
+ * @author Samantha Throne
+ * @version
+ */
 public class Employee  extends Patron{
     
     private int empID;

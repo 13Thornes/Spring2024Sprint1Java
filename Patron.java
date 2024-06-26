@@ -66,24 +66,23 @@ public class Patron {
 
     // Add/remove book from WrittenList
 
-    public void addBorrowedItem(LibaryItem  b) {
+    public void addBorrowedItem(LibaryItem  i) {
         
-            borrowedList.add(b);
+            borrowedList.add(i);
             System.out.println("Item added to list");
         
     }
 
-    public void removeBorrowedItem(LibaryItem item) {
-        if (this.borrowedList.contains(item)) {
-            borrowedList.remove(item);
+    public void removeBorrowedItem(LibaryItem i) {
+        if (this.borrowedList.contains(i)) {
+            borrowedList.remove(i);
             System.out.println("Item removed from list");
     }
 
     }
 
 
-     // toString() FIX THE STRING
-     // SERIOUSLY FIX IT 
+ 
      public String toString() {
         return "Patron " + patronID + "[Name= " + this.name + ", Address= " + this.address + ", Phone No.= " + phoneNum + ", Items Borrowed: " + this.borrowedList.toString();
     
