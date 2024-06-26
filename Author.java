@@ -5,6 +5,7 @@
 // Import required library
 import java.util.ArrayList;
 
+
 /**
  * @author Samantha Throne
  * @version 1.00
@@ -30,16 +31,13 @@ public class Author {
      * @param n Accepts the name of the author and set it to the Author object
      * @param d Accepts the date of birth of the author and set it to the author object
      */
+
     // Create constructors
     public Author(String n, String d) {
         this.name = n;
         this.DOB = d;  
     }
     
-     
-    public Author() {
-         
-    }
     
     /**
      * 
@@ -47,6 +45,7 @@ public class Author {
      * @param d Accepts the date of birth of the author and set it to the Author object
      * @param bt Accepts a list of the books the author has written and set it to the Author object
      */
+
     public Author(String n, String d, LibaryItem bt) {
         this.name = n;
         this.DOB = d;
@@ -56,13 +55,16 @@ public class Author {
 
     // Getters and Setters
 
+
     /**
      * 
      * @return returns the authors name
      */
+
     public String getName() {
         return name;
     }
+
 
     /**
      * 
@@ -72,21 +74,26 @@ public class Author {
         this.name = n;
     }
 
+
     /**
      * 
      * @return returns the date of birth of the author
      */
+
     public String getDOB() {
         return DOB;
     }
+
 
     /**
      * 
      * @param d acceptes the date of birth of the author and set it to the Author class
      */
+
     public void setDOB(String d) {
         this.DOB = d;
     }
+
 
     /**
      * 
@@ -100,11 +107,18 @@ public class Author {
      * 
      * @param i accepts a list of library items and set it to the Author object
      */
+
+    public String getWrittenList() {
+        return writtenList.toString();
+    }
+
+
     public void setWrittenList(LibaryItem i) {
         writtenList.add(i);
     }
 
     // Add/remove book from WrittenList
+
 
     /**
      * Add a library item to the Author class
@@ -115,9 +129,17 @@ public class Author {
             System.out.println("Item already in list");
         } else {
             writtenList.add(i);
+
+    public void addWrittenItem(LibaryItem  b) {
+        if (this.writtenList.contains(b)) {
+            System.out.println("Item already in list");
+        } else {
+            writtenList.add(b);
+
             System.out.println("Item added to list");
         }
     }
+
 
     /**
      * removes a library item from the Author class
@@ -126,15 +148,22 @@ public class Author {
     public void removeWrittenItem(LibaryItem i) {
         if (this.writtenList.contains(i)) {
             writtenList.remove(i);
+
+    public void removeWrittenItem(LibaryItem item) {
+        if (this.writtenList.contains(item)) {
+            writtenList.remove(item);
+
             System.out.println("Item removed from list");
     }
 
     }
 
     // toString() 
+
     /**
      * @return Returns all the data in the Author object as a string
      */
+
     public String toString() {
         return "Name: " + this.name + ", DOB: " + this.DOB + ", Works: " + this.writtenList.toString();
     

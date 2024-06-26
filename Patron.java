@@ -38,6 +38,7 @@ public class Patron {
         this.address = address;
         this.phoneNum = phoneNum;
     }
+
     /**
      * create a null Patron object
      */
@@ -52,6 +53,7 @@ public class Patron {
      * @param phoneNum accepts the phoneNum and set it to the Patron object
      * @param item accepts the item and set it o the Patron object
      */
+
     public Patron(int patronID, String name, String address, String phoneNum, LibaryItem item) {
         this.patronID = patronID;
         this.name = name;
@@ -132,10 +134,12 @@ public class Patron {
         return borrowedList;
     }
 
+
     /**
      * 
      * @param item accepts borrowedList and set it to the Patron object
      */
+
     public void setBorrowedList(ArrayList<LibaryItem> item) {
         borrowedList = item;
     }
@@ -160,16 +164,19 @@ public class Patron {
     public void removeBorrowedItem(LibaryItem i) {
         if (this.borrowedList.contains(i)) {
             borrowedList.remove(i);
+
             System.out.println("Item removed from list");
     }
 
     }
 
 
+
  
     /**
      * @return returns all the data of the Patron object as a string
      */
+
      public String toString() {
         return "Patron " + patronID + "[Name= " + this.name + ", Address= " + this.address + ", Phone No.= " + phoneNum + ", Items Borrowed: " + this.borrowedList.toString();
     

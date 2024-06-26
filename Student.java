@@ -1,8 +1,11 @@
+
 import java.util.ArrayList;
+
 /**
  * @author Samantha Throne
  * @version 1.00
  */
+
 public class Student extends Patron{
     /**
      * repersents the ID of the student
@@ -34,6 +37,7 @@ public class Student extends Patron{
         this.grade = grade;
     }
 
+
     /**
      * creates a Student object
      * @param patronID accepts patronID and set it to the Student object
@@ -45,6 +49,7 @@ public class Student extends Patron{
      * @param grade accepts grade and set it to the Student object
      * @param grade accepts itemList and set it to the Student object
      */
+
     public Student(int patronID, String name, String address, String phoneNum, int studentID, String school, int grade, ArrayList<LibaryItem> itemList) {
         super(patronID, name, address, phoneNum);
         this.studentID = studentID;
@@ -117,4 +122,5 @@ public class Student extends Patron{
     public String toString() {
         return (super.toString() + " Student[StudentID= " + studentID + ", School= " + school + " , Grade= " + grade + "]") ;
     }
+
 }

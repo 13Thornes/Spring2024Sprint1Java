@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+
 import java.util.Scanner;
 /**
  * @author Samantha Throne
@@ -33,7 +34,7 @@ public class LibaryItem {
      * repersents the amount of copies currently borrowed
      */
     private int borrowAmount = 0;
-    
+
 
 
     /**
@@ -53,12 +54,14 @@ public class LibaryItem {
         this.publisher = publisher;
         this.copyNum = copyNum;
     }
+
     /**
      * Create a null LibaryItem object
      */
     public LibaryItem(){
 
-    }
+
+
     // Getters and Setters
 
     /**
@@ -140,10 +143,12 @@ public class LibaryItem {
         this.publisher = pub;
     }
 
+
     /**
      * 
      * @return returns the copyNum of the Libaryitem object
      */
+
     public int getCopyNum() {
         return copyNum;
     }
@@ -156,10 +161,12 @@ public class LibaryItem {
         this.copyNum = copyNum;
     }
 
+
     /**
      * 
      * @return returns the borrowAmount of the LibaryItem object
      */
+
     public int getBorrowAmount() {
         return borrowAmount;
     }
@@ -170,15 +177,18 @@ public class LibaryItem {
      */
     public String toString() {
 
+
         return ("Library Item[ID= " + itemID + ", Title= " + title + ", Author= " + author.getName() + ", ISBN= " + isbn + " Publisher= " + publisher + ", Copies= " + copyNum +"]");
-    }
+
 
     // Borrow and Return book
+
 
     /**
      * Method to borrow the LibaryObject
      * @param p accepts a patron to add a book to the borrowedList
      */
+
     public void Borrow(Patron p) {
         
         if(borrowAmount == copyNum){
