@@ -1,38 +1,13 @@
 import java.util.ArrayList;
 
 // Initialize Library lists
-/**
- * @author Samantha Throne
- * @version 1.00
- * */ 
-
-
 public class Library {
-    /**
-     * represents the bookList ArrayList of the Library Object
-     */
  private ArrayList<Book> bookList = new ArrayList<Book>();
- /**
-     * represents the periodicalList ArrayList of the Library Object
-     */
  private ArrayList<Periodical> periodicalList = new ArrayList<Periodical>();
- /**
-     * represents the patronList ArrayList of the Library Object
-     */
  private ArrayList<Patron> patronList = new ArrayList<Patron>();
- /**
-     * represents the authorList ArrayList of the Library Object
-     */
  private ArrayList<Author> authorList = new ArrayList<Author>();
 
  // Create Constructors
- /**
-     * 
-     * @param bookList accepts the bookList and set it to the Library object
-     * @param periodicalList accepts the periodicalList and set it to the Library object
-     * @param patronList accepts the patronList and set it to the Library object
-     * @param authorList accepts the authorList and set it to the Library object
-     */
  public Library() {
     ArrayList<Book> bookList = new ArrayList<Book>();
     ArrayList<Periodical> periodicalList = new ArrayList<Periodical>();
@@ -40,38 +15,19 @@ public class Library {
     authorList = new ArrayList<Author>();
  }
 
- /**
-  * Method to add a book to the bookList in the Library object
-  * @param book accepts a book to add to the bookList in the Library object
-  */
  public Library(Book book) {
    bookList.add(book);
  }
 
-/**
- * Method to add a periodical to the periodicalList in the Library object
- * @param periodical accepts a periodical to add to the periodicalList in the Library object
- */
  public Library(Periodical periodical) {
     periodicalList.add(periodical);
     
  }
 
- /**
-  * Method to add a patron to the patronList in the Library object
-  * @param patron accepts a patron to add to the patronList in the Library object
-  */
  public Library(Patron patron) {
     patronList.add(patron);
  }
 
- /**
-  * 
-  * @param book accepts a book and set it to the Library object
-  * @param periodical accepts a periodical and set it to the Library object
-  * @param patron accepts a patron and set it to the Library object
-  * @param author accepts an author and set it to the Library object
-  */
  public Library(Book book, Periodical periodical, Patron patron, Author author) {
     bookList.add(book);
     periodicalList.add(periodical);
@@ -81,84 +37,41 @@ public class Library {
 
 
  // Getters and Setters
- /**
-  * 
-  * @return returns the bookList of the Library object
-  */
  public ArrayList<Book> getBookList() {
      return bookList;
  }
 
-
- /**
-  * 
-  * @param bookList accepts bookList and set it to the Libary object
-  */
  public void setBookList(ArrayList<Book> bookList) {
      this.bookList = bookList;
  }
 
-
- /**
-  * 
-  * @return returns the patronList of the Library object
-  */
  public ArrayList<Patron> getPatronList() {
      return patronList;
  }
 
-
- /**
-  * 
-  * @param patronList accepts patronList and set it to the Libary object
-  */
  public void setPatronList(ArrayList<Patron> patronList) {
      this.patronList = patronList;
  }
 
-
- /**
-  * 
-  * @return returns the periodicalList of the Library object
-  */
  public ArrayList<Periodical> getPeriodicalList() {
      return periodicalList;
  }
 
-
- /**
-  * 
-  * @param periodicalList accepts periodicalList and set it to the Libary object
-  */
  public void setPeriodicalList(ArrayList<Periodical> periodicalList) {
     this.periodicalList = periodicalList;
 }
 
-
-
-/**
- * 
- * @return returns the authorList of the Library object
- */
 public ArrayList<Author> getAuthorList() {
     return authorList;
 }
 
-
-/**
- * 
- * @param authorList accepts authorList and set it to the Libary object
- */
 public void setAuthorList(ArrayList<Author> authorList) {
     this.authorList = authorList;
 }
 
 
 // Add and Remove from lists
-/**
- * 
- * @param book accepts book and adds it to bookList in the Libary object
- */
+
 public void addBook(Book book) {
     if (bookList.contains(book)) {
         System.out.println("This book is already in the library");
@@ -169,11 +82,6 @@ public void addBook(Book book) {
 
     }
 
-
-    /**
-     * 
-     * @param author accepts book and adds it to bookList in the Libary object
-     */
     public void addAuthor(Author author){
         if (authorList.contains(author)) {
             System.out.println("This author is already in the library");
@@ -182,13 +90,7 @@ public void addBook(Book book) {
             System.out.println("Author added");
         }
     }
-
-
     //Remove Author from system
-    /**
-     * 
-     * @param author accepts author and removes it from the authorList in the Library Object
-     */
     public void removeAuthor(Author author){
         if (authorList.contains(author)) {
             
@@ -243,10 +145,6 @@ public void addBook(Book book) {
         }
     }
 
-    /**
-     * 
-     * @param book accepts book and removes it from the bookList in the Library Object
-     */
 public void removeBook(Book book) {
     if (bookList.contains(book)) {
         bookList.remove(book);
@@ -256,10 +154,6 @@ public void removeBook(Book book) {
     }
 }
 
-/**
- * 
- * @param periodical accepts periodical and adds it to the periodicalList in the Library Object
- */
 public void addPeriodical(Periodical periodical) {
     if (periodicalList.contains(periodical)) {
         System.out.println("This periodical is already in the library");
@@ -270,10 +164,6 @@ public void addPeriodical(Periodical periodical) {
 
     }
 
-    /**
-     * 
-     * @param periodical accepts periodical and removes it from the periodicalList in the Library Object
-     */
 public void removePeriodical(Periodical periodical) {
     if (periodicalList.contains(periodical)) {
         periodicalList.remove(periodical);
@@ -283,10 +173,6 @@ public void removePeriodical(Periodical periodical) {
     }
 }
 
-/**
- * 
- * @param patron accepts patron and adds it to the patronList in the Library Object
- */
 public void addPatron(Patron patron) {
     if (patronList.contains(patron)) {
         System.out.println("This periodical is already in the library");
@@ -297,11 +183,6 @@ public void addPatron(Patron patron) {
 
     }
 
-
-    /**
-     * 
-     * @param patron accepts patron and removes it from the patronList in the Library Object
-     */
 public void removePatron(Patron patron) {
     if (patronList.contains(patron)) {
         patronList.remove(patron);
@@ -314,4 +195,3 @@ public String toString() {
     return ("Library[Books=" + bookList.toString() + ", Periodicals= " + periodicalList.toString() + ", Patrons= " + patronList.toString()  + "]");
 }
 }
-

@@ -2,17 +2,14 @@
  * @author Samantha throne
  */
 public class Periodical extends LibaryItem {
-
     /**
      * repersents the type of the Periodical object
      */
-
     private String type;
     /**
      * repersents the issue number of the Periodical object
      */
     private String issueNum;
-
 
     /**
      * create a Periodical object
@@ -25,19 +22,16 @@ public class Periodical extends LibaryItem {
      * @param type accepts type and set it to the Periodical object
      * @param issueNum accepts issueNum and set it to the Periodical object
      */
-
     public Periodical(int itemID, String title, Author author, String isbn, String publisher, int copyNum,String type, String issueNum){
         super(itemID, title, author, isbn, publisher, copyNum);
         this.type = type;
         this.issueNum = issueNum;
     }
 
-
     /**
      * create a null Periodical object
      */
     public Periodical(){}
-
 
     /**
      * 
@@ -81,5 +75,4 @@ public class Periodical extends LibaryItem {
         return (super.toString() + " Periodical[Type= " + type + ", Issue No.= " + issueNum + "]");
     }
 }
-
 
