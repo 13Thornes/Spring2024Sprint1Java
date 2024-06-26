@@ -74,7 +74,7 @@ public class Demo {
         if(choice.equals("N")){
             String name;
             String DOB;
-            System.out.println("Enter");
+            
 
             System.out.println("Please enter the Author's full name.");
             name = scanner.next();
@@ -150,7 +150,7 @@ public class Demo {
 
             //Have the user enter the author's name
             while(validInput == false ){
-                System.out.println("Enter");
+                
             System.out.println("Please enter the authors full name");
             authorName = scanner.next();
             
@@ -359,7 +359,7 @@ public class Demo {
                 //If found the author, save it 
                 if (a.getName().equals(authorName))
                 {
-                    System.out.println("Enter");
+                    
                     valid = true;
 
                     a1 = a;
