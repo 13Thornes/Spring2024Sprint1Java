@@ -1,5 +1,4 @@
 
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -74,7 +73,7 @@ public class Demo {
         if(choice.equals("N")){
             String name;
             String DOB;
-            System.out.println("Enter");
+            
 
             System.out.println("Please enter the Author's full name.");
             name = scanner.next();
@@ -150,7 +149,7 @@ public class Demo {
 
             //Have the user enter the author's name
             while(validInput == false ){
-                System.out.println("Enter");
+                
             System.out.println("Please enter the authors full name");
             authorName = scanner.next();
             
@@ -359,7 +358,7 @@ public class Demo {
                 //If found the author, save it 
                 if (a.getName().equals(authorName))
                 {
-                    System.out.println("Enter");
+                    
                     valid = true;
 
                     a1 = a;
@@ -2278,28 +2277,6 @@ public static void removeItem(Library l){
         } while (choice != 6);
 
         scanner.close();
-=======
-public class Demo {
-    public static void main(String[] args) {
-        Author a1 = new Author("Cindy Newman", "12-01-1925");
-        Book b1 = new Book(123, "Hello", a1, "A2H357", "Publish", 2, "EBook", "Fiction");
-        Periodical p1 = new Periodical(456, "Bye", a1, "1h4s9o", "Company", 3, "Magazine", "45");
-        Patron pa1 = new Patron(234, "Katherine Wall", "123 Main st", "1234567890");
-
-        // System.out.println(p1.toString());
-
-        // p1.Borrow();
-
-        // System.out.println(p1.toString());
-
-        // p1.Return();
-
-        // System.out.println(p1.toString());
-
-        pa1.addBorrowedItem(b1);
-
-        System.out.println(pa1.toString());
-
 
 
     }
