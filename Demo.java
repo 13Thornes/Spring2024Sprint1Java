@@ -2211,11 +2211,13 @@ public static void removeItem(Library l){
         Author a2 = new Author("BobJohnson", "1999/08/13");
         Author a3 = new Author("JohnIger", "1987/11/13");
         Book b1 = new Book(123, "Hello", a1, "A2H357", "Publish", 2, "E", "Fiction");
-        Periodical p1 = new Periodical(456, "Bye", a1, "1h4s9o", "Company", 3, "Magazine", "45");
-        Patron pa1 = new Student(234, "KatherineWright", "123MainSt", "1234567890", 675, "StEdwards", 11 );
-        Patron pa2 = new Employee(234, "DavePenny", "56AlexsLane", "0987654321", 3786, "Mangement" );
-        Book b2 = new Book(123, "Hello", a1, "A2H357", "Publish", 2, "E", "Fiction");
+        Book b2 = new Book(124, "Goodbye", a2, "A2H357", "Greenwood", 2, "P", "NonFiction");
+        Periodical p1 = new Periodical(456, "Greetings", a1, "1h4s9o", "Company", 3, "Magazine", "45");
         Periodical p2 = new Periodical(96," Hi", a3, "89NMK9", "Geographic", 2, "P", "76");
+        Patron pa1 = new Student(234, "KatherineWright", "123MainSt", "1234567890", 675, "StEdwards", 11 );
+        Patron pa2 = new Employee(235, "DavePenny", "56AlexsLane", "0987654321", 3786, "Mangement" );
+        
+        
 
         a1.addWrittenItem(b1);
         a1.addWrittenItem(p1);
