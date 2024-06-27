@@ -1284,7 +1284,7 @@ public static void removeItem(Library l){
                                     //Enter the amount of copies to be borrowed
                                     while(validCopies == false){
     
-                                    System.out.println("Enter the amount of copies you wish to borrow");
+                                    System.out.println("Enter the amount of copies you wish to borrow (0 For Main Menu)");
                                     amountCopies = scanner.nextInt();
     
                                     if (amountCopies > (p.getCopyNum()-p.getBorrowAmount())){
@@ -1292,9 +1292,10 @@ public static void removeItem(Library l){
                                         
                                     }
                                     else{
-                                        validCopies = true;
+                                        validCopies = false;
+                                        System.out.println("Testing");
                                     }
-                                }
+                                } 
     
                                 //Borrow the periodicals
                                 for(int i =1;i<= amountCopies; i++){
@@ -1318,7 +1319,7 @@ public static void removeItem(Library l){
                                      Employee e = new Employee(pId,name,address,phoneNum,empID, position);
                                      l.addPatron(e);
                                      
-                                     boolean validCopies = false;
+                                     boolean validCopies = true;
     
                                     //Enter the amount of copies to be borrowed
                                 while(validCopies == false){

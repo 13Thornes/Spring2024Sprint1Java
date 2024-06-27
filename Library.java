@@ -37,7 +37,7 @@ public class Library {
     ArrayList<Book> bookList = new ArrayList<Book>();
     ArrayList<Periodical> periodicalList = new ArrayList<Periodical>();
     ArrayList<Patron> patronList = new ArrayList<Patron>();
-    authorList = new ArrayList<Author>();
+    ArrayList<Author> authorList = new ArrayList<Author>();
  }
 
  /**
